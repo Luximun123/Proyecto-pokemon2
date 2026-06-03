@@ -6,13 +6,39 @@ using namespace std;
 class Pokemones { //la clase para poner a las cabras que voy a crear (su cedula)
 
     private: // valores del profesor
-    string elnombre;
-    /*  string
-    string
-    int vida
-    int salud;
+    //nombre, especie, tipo, vida, ataque, defensa, velocidad, nivel
 
-        */
+    string nombre;
+    string especie;
+    string tipo;
+
+    int vida;
+    int salud;
+    int nivel;
+    int ataque;
+    int defensa;
+    int velocidad;
+        
+
+    public:
+        Pokemones(string nombre, string especie, string tipo, int vida, int salud, int nivel, int ataque, int defensa, int velocidad);
+        
+        void mostrarInformacion();
+        void recibirDanio(int cantidad);
+        void curar(int cantidad);
+
+        string obtenerNombre();
+        string obtenerTipo();
+
+        bool estaDebilitado();
+
+        int leerSalud();
+        int leerVida();
+        int leerAtaque();
+        int leerDefensa();
+        int leerVelocidad();
+
+        
 };
 
 
