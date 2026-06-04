@@ -5,7 +5,7 @@ using namespace std;
 
 class Pokemones { //la clase para poner a las cabras que voy a crear (su cedula)
 
-    private: // valores del profesor
+    private: // valores que dio el profe (notese que me acabo de dar cuenta que tipo y especie es muy parecido XDDDDDD)
     //nombre, especie, tipo, vida, ataque, defensa, velocidad, nivel
 
     string nombre;
@@ -26,10 +26,7 @@ class Pokemones { //la clase para poner a las cabras que voy a crear (su cedula)
         void mostrarInformacion();
         void recibirGolpes(int cantidad);
         void curar(int cantidad);
-        void aumentarAtaque(int cantidad);
-        void aumentarDefensa(int cantidad);
-        void aumentarVelocidad(int cantidad);
-        
+       
         string obtenerNombre();
         string obtenerTipo();
 

@@ -5,11 +5,16 @@ using namespace std;
 
 
 
-pokemones::Pokemones(string nombre, string especie, string tipo, int vida, int salud, int nivel, int ataque, int defensa, int velocidad) {
+Pokemones::Pokemones(string nombr, string especi, string tip, int vid, int salu, int nive, int ataqu, int defens, int velocida) {
+
+nombre=nombr;
+especie=especi;
+tipo=tip;
+vida=vid;
+salud=salu;
+nivel=nive;
+ataque=ataqu;
+defensa=defens;
+velocidad=velocida;
 
 }
-
-
-void Pokemones::aumentarAtaque(int cantidad) { ataque += cantidad; }
-void Pokemones::aumentarDefensa(int cantidad) { defensa += cantidad; }
-void Pokemones::aumentarVelocidad(int cantidad) { velocidad += cantidad; }

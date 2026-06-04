@@ -2,7 +2,6 @@
 #include <string>
 #include "entrenacabra.h"
 #include "batalla.h"
-#include "batalla.h"
 
 using namespace std;
 

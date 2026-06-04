@@ -9,7 +9,7 @@ using namespace std;
     pokemon_activo = 0;
     pokemonplay = 0;
 
-    for(int i=0 ; icantidadPokemones; i++){
+    for(int i=0 ; i<cantidadPokemones; i++){
         equipo[i]=nullptr;
     }
     
