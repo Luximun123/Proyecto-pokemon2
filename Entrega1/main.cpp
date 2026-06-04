@@ -21,7 +21,11 @@ int opcion = 0;
 
         if (opcion == 1) {
             entrenador1->mostrarEquipo();
+            mochila_1->MostrarMochila();
+
+
             entrenador2->mostrarEquipo();
+            mochila_2->MostrarMochila();
         } else if (opcion == 2) {
             
             
