@@ -1,5 +1,8 @@
 #ifndef BATALLA_H
 #define BATALLA_H
+
+#include "pokegod.h"
+#include "entrenacabra.h"
 #include <string>
 using namespace std;
 
