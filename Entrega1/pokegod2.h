@@ -26,7 +26,10 @@ class Pokemones { //la clase para poner a las cabras que voy a crear (su cedula)
         void mostrarInformacion();
         void recibirGolpes(int cantidad);
         void curar(int cantidad);
-
+        void aumentarAtaque(int cantidad);
+        void aumentarDefensa(int cantidad);
+        void aumentarVelocidad(int cantidad);
+        
         string obtenerNombre();
         string obtenerTipo();
 

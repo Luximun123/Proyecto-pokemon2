@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "entrenacabra.h"
 #include "batalla.h"
 #include "batalla.h"
@@ -16,23 +17,26 @@ int main(){
 
 int opcion = 0;
     while (opcion != 3) {
-        cout << "\n    Menu de pokemon 2    \n1. Ver equipos\n2. Batalla\n3. Salir\nQue desea: ";
+        cout << "\n    Menu de pokemon 2    \n1. Ver equipos y la mochila\n2. Batalla\n3. Salir\nQue desea: ";
         cin >> opcion;
 
         if (opcion == 1) {
             entrenador1->mostrarEquipo();
-            mochila_1->MostrarMochila();
-
+            entrenador1->MostrarMochila();
 
             entrenador2->mostrarEquipo();
-            mochila_2->MostrarMochila();
+            entrenador2->MostrarMochila();
         } else if (opcion == 2) {
             
-            
-            break
+            cout << "Iniciando batalla\n";
+            // poner la funcion de la batalla             
         }
 
+
+    delete entrenador1;
+    delete entrenador2;
     return 0;
 
         
-}
+    }
+} // llave del main
