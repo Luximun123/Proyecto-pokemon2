@@ -7,16 +7,37 @@ using namespace std;
 
 int main(){
 
+
+    cout << R"(
+⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢻⣿⡗⢶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣄
+⠀⢻⣇⠀⠈⠙⠳⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⠛⠋⣹⣿⡿
+⠀⠀⠹⣆⠀⠀⠀⠀⠙⢷⣄⣀⣀⣀⣤⣤⣤⣄⣀⣴⠞⠋⠉⠀⠀⠀⢀⣿⡟⠁
+⠀⠀⠀⠙⢷⡀⠀⠀⠀⠀⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀
+⠀⠀⠀⠀⠈⠻⡶⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣠⡾⠋⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣼⠃⠀⢠⠒⣆⠀⠀⠀⠀⠀⠀⢠⢲⣄⠀⠀⠀⢻⣆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢰⡏⠀⠀⠈⠛⠋⠀⢀⣀⡀⠀⠀⠘⠛⠃⠀⠀⠀⠈⣿⡀⠀⠀⠀⠀
+⠀⠀⠀⠀⣾⡟⠛⢳⠀⠀⠀⠀⠀⣉⣀⠀⠀⠀⠀⣰⢛⠙⣶⠀⢹⣇⠀⠀⠀⠀
+⠀⠀⠀⠀⢿⡗⠛⠋⠀⠀⠀⠀⣾⠋⠀⢱⠀⠀⠀⠘⠲⠗⠋⠀⠈⣿⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⢷⡀⠀⠀⠀⠀⠀⠈⠓⠒⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡇⠀⠀⠀
+⠀⠀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀⠀⠀
+⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀
+)" <<endl;
+
+
+
+
+    cout<< "       BIENVENIDOS A MI BEST IN THE WORLD GAME MADE EVER, NOW IN GROUP ( AND ARCH)\n                   POKEMON2 MAY CRY REMAKE";
 //Pokemones y entrenadores
 
     EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
     EntrenaCabra *entrenador_2 = new EntrenaCabra("John Marston", 1911);
 
-                                //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
+   
+                             //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
     Pokemones *p1 =new Pokemones("Promeia","Humano","Hielo",120, 120, 15, 35, 20, 1);
     Pokemones *p2 =new Pokemones("Capitano", "Humano", "Fisico", 150 , 150 , 50 ,30, 20, 1);
-    Pokemones *p3 =new Pokemones("Solid snake", "Humanoide", "eter", 80 , 60 , 40 , 20, 30, 1);
-
+    Pokemones *p3 =new Pokemones("Solid snake", "Humanoide", "eter", 80 , 80 , 40 , 20, 30, 1);
 
     Pokemones *p4 =new Pokemones("Big Boss", "Humanoide", "Soldado", 100 , 100 , 100 , 50, 40,1);
     Pokemones *p5 =new Pokemones("Wonder of you ", "humanoide" , "eter", 80 , 80 , 20 , 40,30, 1);
