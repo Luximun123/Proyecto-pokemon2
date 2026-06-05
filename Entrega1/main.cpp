@@ -6,9 +6,19 @@
 using namespace std;
 
 int main(){
+<<<<<<< HEAD
+
+
+
 
 //PROMEIA >> CAPITANO
 //BASURA >> CAPITANO
+>>>>>>> c564cee0d5f1b5be568a3d50b827ccf9bb3a9823
+=======
+
+//PROMEIA >> CAPITANO
+//BASURA >> CAPITANO
+>>>>>>> c564cee0d5f1b5be568a3d50b827ccf9bb3a9823
 //Pokemones y entrenadores
 
     EntrenaCabra *entrenador_1 = new Entrenacabra("Arthur Morgan", 1889);
@@ -18,6 +28,7 @@ int main(){
     Pokemones *p1("Promeia",120,120,15,35,20,25);
     Pokemones *p2("Capitano, Humano, Fisico", 1000 , 1000 , 1000 , 999);
     Pokemones *p3("Solid snake, Humanoide","eter",);
+    Pokemones *p4("Big Boss, Humanoide, Soldado", 1000 , 100 , 1000 , 999);
     
 
     Pokemones *p4("Big Boss, Humanoide, Soldado", 1000 , 1000 , 1000 , 999);
@@ -26,6 +37,16 @@ int main(){
  
     // asignar pokemones a entrenadoes 
 
+
+     // TERMINAR EL CODIGO Y QUE FFUNCIOONE CORRECTAMENTE
+    Entrenador1.asignarPokemon(&p1,0);
+    Entrenador1.asignarPokemon(&p2,1);
+    Entrenador1.asignarPokemon(&p3,2);
+
+    Entrenador2.asignarPokemon(&p4,0);
+    Entrenador2.asignarPokemon(&p5,1);
+    Entrenador2.asignarPokemon(&p6,2);
+    
 
 
 

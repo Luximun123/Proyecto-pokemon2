@@ -13,6 +13,7 @@ class EntrenaCabra{
         int id;
         int const cantidadPokemones=3;
         int pokemonplay; // Pokemon activo
+        int posicion;
         
         Pokemones** equipo; // accede al valor que se guarda en la direccion
 
@@ -31,7 +32,12 @@ class EntrenaCabra{
         void MostrarEquipo();
         void MostrarDatos();
         void MostrarMochila();
+
+
+        void AgregarPokemon(Pokemones*, int posicion);  // FUNCION A TERMINAR
     
+
+
         Pokemones* obtenerActivo();
         string obtenerNombre();
     
