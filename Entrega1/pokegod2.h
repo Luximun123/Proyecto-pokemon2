@@ -12,8 +12,8 @@ class Pokemones { //la clase para poner a las cabras que voy a crear (su cedula)
     string especie;
     string tipo;
 
-    int vida;
-    int salud;
+    int vida; // vida actual
+    int salud; // vida total
     int nivel;
     int ataque;
     int defensa;
@@ -33,21 +33,13 @@ class Pokemones { //la clase para poner a las cabras que voy a crear (su cedula)
 
         bool estaDebilitado();
 
-        int leerSalud();
-        int leerVida();
-        int leerAtaque();
-        int leerDefensa();
-        int leerVelocidad();
+        int getSalud();
+        int getVida();
+        int getAtaque();
+        int getDefensa();
+        int getVelocidad();
 
         
 };
-
-
-
-
-
-
-
-
 
 #endif

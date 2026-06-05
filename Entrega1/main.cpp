@@ -6,13 +6,22 @@
 using namespace std;
 
 int main(){
-    string jugador1;
+    
+//Pokemones y entrenadores
 
-    cout << "Ingrese el nombre de su entrenador ";
-    cin >> jugador1;
+    Entrenacabra *entrenador_1 = new Entrenacabra("Arthur Morgan", 1889);
+    Entrenacabra *entrenador_2 = new Entrenacabra("John Marston", 1911);
 
-    Entrenacabra entrenador1(jugador1);
-    Entrenacabra entrenador2("Misty");
+
+    Pokemones *p1("fuego")
+    Pokemones *p2("")
+    Pokemones *p3("")
+
+    Pokemones *p4("")
+    Pokemones *p
+    Pokemones
+
+
 
 int opcion = 0;
     while (opcion != 3) {

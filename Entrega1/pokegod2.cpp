@@ -20,11 +20,11 @@ velocidad=velocida;
 }
 void Pokemones::subirNivel() {
     nivel += 1;
-    salud += 15; // Sube la vida máxima
-    vida += 15;  // Se cura un poquito al subir
+    salud += 15; // Sube la vida maxima
+    vida += 20;  // Se cura un poquito al subir
     ataque += 8;
     defensa += 5;
-    velocidad += 3; //
+    velocidad += 3; // criticos
 
     cout << nombre << " ha subido al nivel " << nivel << "Felicidades mai bro"<< endl;
     cout << "Sus estadísticas han mejorado de manera permanente (Gracias a dios)" << endl;
@@ -40,3 +40,23 @@ void Pokemones::mostrarInformacion() {
     cout << "Defensa: " << defensa << endl;
     cout << "Velocidad: " << velocidad << endl;
 }
+void Pokemones::recibirGolpes(int cantidad) {
+    vida -= cantidad;
+    if (vida < 0) {vida = 0;}
+}
+void Pokemones::curar(int cantidad) {
+    vida += cantidad;
+    if (vida > salud) {vida = salud;}
+
+}
+    bool Pokemones::estaDebilitado() { 
+    return vida <= 0;
+    }
+
+    int Pokemones::getSalud(return salud;)
+    int Pokemones::getVida(return vida;)
+    int Pokemones::getAtaque(return ataque;)
+    int Pokemones::getDefensa(return defensa;)
+    int Pokemones::getVelocidad(return velocidad;)
+    string Pokemones::obtenerNombre() {return nombre; }
+    string Pokemones::obtenerTipo() {return tipo; }
