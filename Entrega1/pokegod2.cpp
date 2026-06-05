@@ -53,10 +53,10 @@ void Pokemones::curar(int cantidad) {
     return vida <= 0;
     }
 
-    int Pokemones::getSalud(return salud;)
-    int Pokemones::getVida(return vida;)
-    int Pokemones::getAtaque(return ataque;)
-    int Pokemones::getDefensa(return defensa;)
-    int Pokemones::getVelocidad(return velocidad;)
+    int Pokemones::getSalud() {return salud;}
+    int Pokemones::getVida() {return vida;}
+    int Pokemones::getAtaque() {return ataque;}
+    int Pokemones::getDefensa() {return defensa;}
+    int Pokemones::getVelocidad() {return velocidad;}
     string Pokemones::obtenerNombre() {return nombre; }
     string Pokemones::obtenerTipo() {return tipo; }

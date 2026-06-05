@@ -13,12 +13,10 @@ class EntrenaCabra{
         int id;
         int const cantidadPokemones=3;
         int pokemonplay; // Pokemon activo
-        int posicion;
         
         Pokemones** equipo; // accede al valor que se guarda en la direccion
 
         string mochila[5];
-       
         bool objetousado[5]; // Array para ver si cada objeto en la mochila ha sido usado
     
     public:
@@ -26,21 +24,20 @@ class EntrenaCabra{
         EntrenaCabra(string nombre, int id);
         ~EntrenaCabra();
         
+        int usarObjeto();
         bool cambiarPokemon();
-        bool usarObjeto();
         bool estasmuerto();
         void MostrarEquipo();
-        void MostrarDatos();
         void MostrarMochila();
 
 
-        void AgregarPokemon(Pokemones*, int posicion);  // FUNCION A TERMINAR
+        void AgregarPokemon(Pokemones* p, int posicion);  // FUNCION A TERMINAR
     
 
 
         Pokemones* obtenerActivo();
         string obtenerNombre();
-    
+        Pokemones* obtenerPokemon(int indice);    
 };
 
 

@@ -6,23 +6,11 @@
 using namespace std;
 
 int main(){
-<<<<<<< HEAD
 
-
-
-
-//PROMEIA >> CAPITANO
-//BASURA >> CAPITANO
->>>>>>> c564cee0d5f1b5be568a3d50b827ccf9bb3a9823
-=======
-
-//PROMEIA >> CAPITANO
-//BASURA >> CAPITANO
->>>>>>> c564cee0d5f1b5be568a3d50b827ccf9bb3a9823
 //Pokemones y entrenadores
 
-    EntrenaCabra *entrenador_1 = new Entrenacabra("Arthur Morgan", 1889);
-    EntrenaCabra *entrenador_2 = new Entrenacabra("John Marston", 1911);
+    EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
+    EntrenaCabra *entrenador_2 = new EntrenaCabra("John Marston", 1911);
 
                   //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
     Pokemones *p1("Promeia",120,120,15,35,20,25);
@@ -39,13 +27,13 @@ int main(){
 
 
      // TERMINAR EL CODIGO Y QUE FFUNCIOONE CORRECTAMENTE
-    Entrenador1.asignarPokemon(&p1,0);
-    Entrenador1.asignarPokemon(&p2,1);
-    Entrenador1.asignarPokemon(&p3,2);
+    entrenador_1->AgregarPokemon(p1,0);
+    entrenador_1->AgregarPokemon(p2,1);
+    entrenador_1->AgregarPokemon(p3,2);
 
-    Entrenador2.asignarPokemon(&p4,0);
-    Entrenador2.asignarPokemon(&p5,1);
-    Entrenador2.asignarPokemon(&p6,2);
+    entrenador_2->AgregarPokemon(p4,0);
+    entrenador_2->AgregarPokemon(p5,1);
+    entrenador_2->AgregarPokemon(p6,2);
     
 
 
@@ -56,11 +44,11 @@ int opcion = 0;
         cin >> opcion;
 
         if (opcion == 1) {
-            entrenador1->mostrarEquipo();
-            entrenador1->MostrarMochila();
+            entrenador_1->MostrarEquipo();
+            entrenador_1->MostrarMochila();
 
-            entrenador2->mostrarEquipo();
-            entrenador2->MostrarMochila();
+            entrenador_2->MostrarEquipo();
+            entrenador_2->MostrarMochila();
         } else if (opcion == 2) {
             
             cout << "Iniciando batalla\n";
@@ -68,8 +56,8 @@ int opcion = 0;
         }
 
 
-    delete entrenador1;
-    delete entrenador2;
+    delete entrenador_1;
+    delete entrenador_2;
     return 0;
 
         

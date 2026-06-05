@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-class Pokemones { //la clase para poner a las cabras que voy a crear (su cedula)
+class Pokemones { 
 
     private: // valores que dio el profe (notese que me acabo de dar cuenta que tipo y especie es muy parecido XDDDDDD)
     //nombre, especie, tipo, vida, ataque, defensa, velocidad, nivel

@@ -15,7 +15,6 @@ class Batalla {
     public:
     bool ganar(); // condicion para ganar la batalla
     void MostrarEstados(); // muestra los estados de los personajes
-    evaluciondelcombate(); // evalua el combate y determina el ganador
     
 };
 
