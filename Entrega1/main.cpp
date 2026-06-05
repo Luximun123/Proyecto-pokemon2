@@ -17,7 +17,6 @@ int main(){
     Pokemones *p2("Capitano, Humano, Fisico", 1000 , 1000 , 1000 , 999);
     Pokemones *p3("Solid snake, Humanoide","eter",);
 
-    STEVEN MAMALO
     Capitano > Promeia
     
     CAPITANO >>> ZZZ LORE
