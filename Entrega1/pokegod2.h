@@ -1,16 +1,16 @@
 #ifndef POKEGOD2_H
 #define POKEGOD2_H
 #include <string>
-using namespace std;
+
 
 class Pokemones { 
 
     private: // valores que dio el profe (notese que me acabo de dar cuenta que tipo y especie es muy parecido XDDDDDD)
     //nombre, especie, tipo, vida, ataque, defensa, velocidad, nivel
 
-    string nombre;
-    string especie;
-    string tipo;
+    std::string nombre;
+    std::string especie;
+    std::string tipo;
 
     int vida; // vida actual
     int salud; // vida total
@@ -21,15 +21,15 @@ class Pokemones {
         
 
     public:
-        Pokemones(string nombre, string especie, string tipo, int vida, int salud, int nivel, int ataque, int defensa, int velocidad);
+        Pokemones(std::string nombre, std::string especie, std::string tipo, int vida, int salud, int nivel, int ataque, int defensa, int velocidad);
         
         void mostrarInformacion();
         void recibirGolpes(int cantidad);
         void curar(int cantidad);
         void subirNivel();
         
-        string obtenerNombre();
-        string obtenerTipo();
+        std::string obtenerNombre();
+        std::string obtenerTipo();
 
         bool estaDebilitado();
 
