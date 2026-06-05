@@ -12,16 +12,15 @@ int main(){
     EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
     EntrenaCabra *entrenador_2 = new EntrenaCabra("John Marston", 1911);
 
-                  //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
-    Pokemones *p1("Promeia",120,120,15,35,20,25);
-    Pokemones *p2("Capitano, Humano, Fisico", 1000 , 1000 , 1000 , 999);
-    Pokemones *p3("Solid snake, Humanoide","eter",);
-    Pokemones *p4("Big Boss, Humanoide, Soldado", 1000 , 100 , 1000 , 999);
-    
+                                //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
+    Pokemones *p1 =new Pokemones("Promeia","Humano","Hielo",120, 120, 15, 35, 20, 1);
+    Pokemones *p2 =new Pokemones("Capitano", "Humano", "Fisico", 150 , 90 , 50 ,30, 20, 1);
+    Pokemones *p3 =new Pokemones("Solid snake", "Humanoide", "eter", 80 , 60 , 40 , 20, 30, 1);
 
-    Pokemones *p4("Big Boss, Humanoide, Soldado", 1000 , 1000 , 1000 , 999);
-    Pokemones *p5("Wonder of you , humanoide , stand");
-    Pokemones *p6("Adam Smasher, robot, humanoide ");
+
+    Pokemones *p4 =new Pokemones("Big Boss", "Humanoide", "Soldado", 100 , 70 , 100 , 50, 40,1);
+    Pokemones *p5 =new Pokemones("Wonder of you ", "humanoide" , "eter", 80 , 50 , 20 , 40,30, 1);
+    Pokemones *p6 =new Pokemones("Adam Smasher", "robot" , "electrico", 200 , 150 , 30 , 50, 20, 1);
  
     // asignar pokemones a entrenadoes 
 
