@@ -20,7 +20,7 @@ float Batalla::ventaja(string tipo_atacante, string tipo_defensor){
     if (tipo_atacante == "Fisico" && tipo_defensor == "Eter") return 0.5;
     if (tipo_atacante == "Fuego" && tipo_defensor == "Fisico") return 0.5;
     
-    // Dano normal
+    // Daño normal
     return 1.0;
 }
 
