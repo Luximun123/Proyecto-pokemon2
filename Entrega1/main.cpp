@@ -7,7 +7,8 @@ using namespace std;
 
 int main(){
 
-    
+//PROMEIA >> CAPITANO
+//BASURA >> CAPITANO
 //Pokemones y entrenadores
 
     EntrenaCabra *entrenador_1 = new Entrenacabra("Arthur Morgan", 1889);
