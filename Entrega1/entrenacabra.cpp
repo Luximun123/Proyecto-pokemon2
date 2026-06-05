@@ -3,25 +3,27 @@
 using namespace std;
 
 
-    entrenacabra::entrenacabra(string nombre, int id , mochilla mochila){
-
-    equipo = new *pokemones[cantidadPokemones];
-    pokemon_activo = 0;
-    pokemonplay = 0;
+    EntrenaCabra::EntrenaCabra(string nombre, int id_num){
+        Nombre=nombre;
+        id = id_num;
+        equipo = new Pokemones*[cantidadPokemones];
+        pokemonplay = 0;
 
     for(int i=0 ; i<cantidadPokemones; i++){
         equipo[i]=nullptr;
     }
     
 }
-    void entrenacabra::MostrarEquipo(){
+    void EntrenaCabra::MostrarEquipo(){
+        cout << "/n     Equipo de " << Nombre << ":" << endl;
         for(int i=0 ; i<cantidadPokemones; i++){
             i+1;
-        cout << "Pokemon "  << ": " << equipo[i] << endl;
+        cout << "Pokemon " << i+1 << ": " << equipo[i] << endl;
         }
     }
-
-    void entrenacabra::MostrarMochila(){
+    
+    void EntrenaCabra::MostrarMochila(){
+        cout << "/n     Mochila de: " << endl;
         for(int i=0 ; i<5; i++){
             i+1;
         cout << "Objeto "  << ": " << mochila[i] << endl;
@@ -46,8 +48,8 @@ using namespace std;
         
 
     }
-mochila [0]={"nesti"};
-mochila [1]= {"yamato_rebelion"};
-mochila [2]= {"Monster"};
-mochila [3]= {"CQC"};
-mochila [4]= {"Minecraft2015"};
+mochila [0]="nesti";
+mochila [1]= "yamato_rebelion";
+mochila [2]= "Monster";
+mochila [3]= "CQC";
+mochila [4]= "Minecraft2015";

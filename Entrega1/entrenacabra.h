@@ -2,7 +2,7 @@
 #define ENTRENACABRA_H
 
 #include <string>
-#include "pokegod.h"
+#include "pokegod2.h"
 
 using namespace std;
 
@@ -12,26 +12,33 @@ class EntrenaCabra{
         string Nombre;
         int id;
         int const cantidadPokemones=3;
-        int pokemonplay; // Índice del Pokemon activo
+        int pokemonplay; // Pokemon activo
         
-        pokemones* equipo[3]; // el operador accede al valor que se guarda en la direccion
+        Pokemones** equipo; // accede al valor que se guarda en la direccion
+
         string mochila[5];
        
+        bool objetousado[5]; // Array para ver si cada objeto en la mochila ha sido usado
+    
     public:
-        EntrenaCabra(string nombre, int id , int  const cantidadPokemones, mochila mochilla);
+       
+        EntrenaCabra(string nombre, int id);
         ~EntrenaCabra();
         
+        bool cambiarPokemon();
+        bool usarObjeto();
         bool estasmuerto();
         void MostrarEquipo();
         void MostrarDatos();
-
-    Pokemones* obtenerActivo();
-    string obtenerNombre();
-    bool usarObjeto();
+        void MostrarMochila();
+    
+        Pokemones* obtenerActivo();
+        string obtenerNombre();
+    
 };
 
 
-        void MostrarMochila();
+
 
 
 #endif 
