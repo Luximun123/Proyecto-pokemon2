@@ -9,17 +9,26 @@ int main(){
     
 //Pokemones y entrenadores
 
-    Entrenacabra *entrenador_1 = new Entrenacabra("Arthur Morgan", 1889);
-    Entrenacabra *entrenador_2 = new Entrenacabra("John Marston", 1911);
+    EntrenaCabra *entrenador_1 = new Entrenacabra("Arthur Morgan", 1889);
+    EntrenaCabra *entrenador_2 = new Entrenacabra("John Marston", 1911);
 
+                  //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
+    Pokemones *p1("Promeia",120,120,15,35,20,25);
+    Pokemones *p2("Capitano, Humano, Fisico", 1000 , 1000 , 1000 , 999);
+    Pokemones *p3("Solid snake, Humanoide","eter",);
 
-    Pokemones *p1("fuego")
-    Pokemones *p2("")
-    Pokemones *p3("")
+    STEVEN MAMALO
+    Capitano > Promeia
+    
+    CAPITANO >>> ZZZ LORE
+    DOTTORE >> ZZZ VILLANOS 
 
-    Pokemones *p4("")
-    Pokemones *p
-    Pokemones
+    Pokemones *p4("Big Boss, Humanoide, Soldado", 1000 , 1000 , 1000 , 999);
+    Pokemones *p5("Wonder of you , humanoide , stand");
+    Pokemones *p6("Adam Smasher, robot, humanoide ");
+ 
+    // asignar pokemones a entrenadoes 
+
 
 
 
