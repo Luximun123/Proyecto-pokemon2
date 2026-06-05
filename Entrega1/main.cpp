@@ -16,11 +16,7 @@ int main(){
     Pokemones *p1("Promeia",120,120,15,35,20,25);
     Pokemones *p2("Capitano, Humano, Fisico", 1000 , 1000 , 1000 , 999);
     Pokemones *p3("Solid snake, Humanoide","eter",);
-
-    Capitano > Promeia
     
-    CAPITANO >>> ZZZ LORE
-    DOTTORE >> ZZZ VILLANOS 
 
     Pokemones *p4("Big Boss, Humanoide, Soldado", 1000 , 1000 , 1000 , 999);
     Pokemones *p5("Wonder of you , humanoide , stand");
