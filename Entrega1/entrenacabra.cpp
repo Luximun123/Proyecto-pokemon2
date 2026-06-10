@@ -24,6 +24,11 @@ using namespace std;
     }
 
     EntrenaCabra::~EntrenaCabra() {
+        for(int i=0 ; i<cantidadPokemones; i++){
+            if (equipo[i] != nullptr){
+                delete equipo[i];
+            }
+        }
         delete[] equipo;
     }
 

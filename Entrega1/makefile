@@ -1,11 +1,11 @@
-all: programa
+all: Pokemon
 
-programa: main.cpp util.cpp persona.cpp
-	g++ main.cpp util.cpp persona.cpp -o programa
+Pokemon: main.cpp entrenacabra.cpp pokegod2.cpp Batalla.cpp
+	g++ main.cpp entrenacabra.cpp pokegod2.cpp Batalla.cpp -o Pokemon
 	
 
 clean:
-	rm -f programa
+	rm -f Pokemon
 
-run: programa
-	./programa
+run: Pokemon
+	./Pokemon
