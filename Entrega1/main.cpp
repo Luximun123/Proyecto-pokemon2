@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
 
-
+    
     cout << R"(
 ⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⢻⣿⡗⢶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣄
@@ -25,7 +25,8 @@ int main(){
 )" <<endl;
 
 
-    cout<< "       BIENVENIDOS A MI BEST IN THE WORLD GAME MADE EVER, NOW IN GROUP ( AND ARCH)\n                   POKEMON2 MAY CRY REMAKE";
+    cout<< "       BIENVENIDOS A MI BEST IN THE WORLD GAME MADE EVER, NOW IN GROUP ( AND ARCH)"<<endl;
+    cout << "                               POKEMON2 MAY CRY REMAKE" <<endl<<endl;
 //Pokemones y entrenadores
 
     EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
