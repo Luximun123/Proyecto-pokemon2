@@ -25,12 +25,13 @@ class EntrenaCabra{
         int usarObjeto();
         bool cambiarPokemon();
         bool estasmuerto();
+        bool usarObjetoCPU(int indice);
         void MostrarEquipo();
         void MostrarMochila();
 
 
         void AgregarPokemon(Pokemones* p, int posicion);  // FUNCION A TERMINAR
-    
+        
 
 
         Pokemones* obtenerActivo();

@@ -67,6 +67,16 @@ using namespace std;
             }
         }
     }
+
+    bool EntrenaCabra::usarObjetoCPU(int indice) {
+    if (indice >= 0 && indice <= 4) {
+        if (!objetousado[indice]) {
+            objetousado[indice] = true;
+            return true; 
+        }
+    }
+    return false; 
+}
     
     void EntrenaCabra::MostrarMochila(){
         cout << "\n     Mochila de " << Nombre << ":" << endl;

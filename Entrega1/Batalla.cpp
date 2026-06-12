@@ -145,18 +145,37 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         if (turno_valido && !cabraCpu->estaDebilitado()){
             cout << "\n [TURNO ENEMIGO - CPU]" << endl;
             
+                bool securo = false; // variable para saber si la CPU uso un objeto de la mochila
+
+                // decision de la CPU para usar objetos o atacar
+            if (cabraCpu->getVida() < (cabraCpu->getSalud() / 2)) {
+
+                if (probabilidad(gen) > 50) {
+
+                    cabraCpu->curar(50);
+                    cout << ">> El enemigo usa un nesti y recupera 50 HP." << endl;
+                    securo = true;
+                }
+            }
+            
+
+            if (!securo) {
             float multCpu = ventaja(cabraCpu->obtenerTipo(), cabraJugador->obtenerTipo());
             int danioCpu = (cabraCpu->getAtaque() - ((cabraJugador->getDefensa() + buffDefensa) / 2)) * multCpu;
             if (danioCpu <= 0) danioCpu = 1;
            
             // Calculando critico de la CPU
             if (probabilidad(gen) < cabraCpu->getVelocidad()) {
-                danioCpu *= 1.5; cout << "CRITICO DEL ENEMIGO\n";
+                danioCpu *= 1.5;
+                cout << "CRITICO DEL ENEMIGO\n";
             }
 
             cabraJugador->recibirGolpes(danioCpu);
-            cout << ">> " << cabraCpu->obtenerNombre() << " contraataca. Damage recibido en tu agente: " << danioCpu << endl;            
+         
+           cout << ">> " << cabraCpu->obtenerNombre() << " contraataca. Daño recibido en tu agente: " << danioCpu << endl;            
         }
+        }
+    
     }
     
     // Evaluacion final del combate
