@@ -4,8 +4,8 @@
 using namespace std;
 
 
-
-Pokemones::Pokemones(string nombr, string especi, string tip, int vid, int salu, int nive, int ataqu, int defens, int velocida) {
+                    //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
+Pokemones::Pokemones(string nombr, string especi, string tip, int vid, int salu, int ataqu, int defens, int velocida, int nive) {
 
 nombre=nombr;
 especie=especi;

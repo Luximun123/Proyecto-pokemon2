@@ -20,8 +20,8 @@ class Pokemones {
     int velocidad;
         
 
-    public:
-        Pokemones(std::string nombre, std::string especie, std::string tipo, int vida, int salud, int nivel, int ataque, int defensa, int velocidad);
+    public:                  //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
+        Pokemones(std::string nombre, std::string especie, std::string tipo, int vida, int salud, int ataque, int defensa, int velocidad, int nivel);
         
         void mostrarInformacion();
         void recibirGolpes(int cantidad);
