@@ -110,7 +110,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
             
             if(multiplicador > 1.0) cout << " (El enemigo es debil a este atributo) ";
             if(multiplicador < 1.0) cout << " (El enemigo resistio parcialmente el atributo) ";
-            cout << "\n Danio infligido: " << danio << endl;
+            cout << "\n Daño infligido: " << danio << endl;
             
             turno_valido = true;
         }

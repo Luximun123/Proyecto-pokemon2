@@ -12,12 +12,12 @@ using namespace std;
         for(int i=0 ; i<cantidadPokemones; i++){
             equipo[i]=nullptr;
         }
-        mochila [0]= "nesti";
-        mochila [1]= "yamato_rebelion";
-        mochila [2]= "Monster";
-        mochila [3]= "CQC";
-        mochila [4]= "Minecraft2015";
-        
+        mochila [0]= "nesti (50 HP)";
+        mochila [1]= "yamato_rebelion (40 ATK)";
+        mochila [2]= "Monster (40 SPD/CRIT)";
+        mochila [3]= "CQC (40 DEF)";
+        mochila [4]= "Minecraft2015 (1 nivel)";
+
         for(int i = 0 ; i < 5; i++){
             objetousado[i] = false;
         }
