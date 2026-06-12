@@ -150,7 +150,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
                 // decision de la CPU para usar objetos o atacar
             if (cabraCpu->getVida() < (cabraCpu->getSalud() / 2)) {
 
-                if (probabilidad(gen) > 50) {
+                if (probabilidad(gen) > 50 && cpu->usarObjetoCPU(0)) {
 
                     cabraCpu->curar(50);
                     cout << ">> El enemigo usa un nesti y recupera 50 HP." << endl;
