@@ -12,7 +12,7 @@ using namespace std;
         for(int i=0 ; i<cantidadPokemones; i++){
             equipo[i]=nullptr;
         }
-        mochila [0]= "nesti (50 HP)";
+        mochila [0]= "nesti (80 HP)";
         mochila [1]= "yamato_rebelion (40 ATK)";
         mochila [2]= "Monster (40 SPD/CRIT)";
         mochila [3]= "CQC (40 DEF)";

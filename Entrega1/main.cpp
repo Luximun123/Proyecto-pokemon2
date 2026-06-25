@@ -2,7 +2,7 @@
 #include <string>
 #include "entrenacabra.h"
 #include "batalla.h"
-
+#include <cstdlib>
 using namespace std;
 
 int main(){
@@ -26,7 +26,7 @@ int main(){
 
 
     cout<< "       BIENVENIDOS A MI BEST IN THE WORLD GAME MADE EVER, NOW IN GROUP ( AND ARCH)"<<endl;
-    cout << "                               POKEMON2 MAY CRY REMAKE" <<endl<<endl;
+    cout << "                               POKEMON2 MAY CRY REMAKE" <<endl<<endl<<endl;
 //Pokemones y entrenadores
 
     EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
@@ -34,8 +34,8 @@ int main(){
 
    
                              //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
-    Pokemones *p1 =new Pokemones("Promeia","Humano","Hielo",120, 120, 15, 35, 20, 1);
-    Pokemones *p2 =new Pokemones("Capitano", "Humano", "Fisico", 150 , 150 , 50 ,30, 20, 1);
+    Pokemones *p1 =new Pokemones("Promeia","Humano","Hielo",150, 150, 15, 35, 20, 1);
+    Pokemones *p2 =new Pokemones("Capitano", "Zombie", "Fisico", 150 , 150 , 50 ,30, 20, 1);
     Pokemones *p3 =new Pokemones("Solid snake", "Humanoide", "Eter", 80 , 80 , 40 , 20, 30, 1);
 
     Pokemones *p4 =new Pokemones("Big Boss", "Humanoide", "Fuego", 100 , 100 , 100 , 50, 40,1);
@@ -59,16 +59,28 @@ int opcion = 0;
         cin >> opcion;
 
         if (opcion == 1) {
+            #ifdef _WIN32
+                system("cls");
+            #else
+                system("clear");
+            #endif
+            cout << "Operadores de el Agente 1"<<endl;
             entrenador_1->MostrarEquipo();
             entrenador_1->MostrarMochila();
-
+            cout<<endl;
+            cout << "Operadores de el Agente 2"<<endl;
             entrenador_2->MostrarEquipo();
             entrenador_2->MostrarMochila();
         } 
         else if (opcion == 2) {
+            #ifdef _WIN32
+                system("cls");
+            #else
+                system("clear");
+            #endif
             Batalla Combate;
             Combate.inicio_combat(entrenador_1, entrenador_2);
-            
+
             cout << "Iniciando batalla\n";        
         }
 

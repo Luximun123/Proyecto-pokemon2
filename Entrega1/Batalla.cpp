@@ -116,7 +116,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         }
         else if (opcion == 2) {
             int item_usado = jugador->usarObjeto(); 
-            if (item_usado == 0) { cabraJugador->curar(50); cout << ">> Tomaste Nesti y recuperaste 50 HP.\n"; turno_valido = true; }
+            if (item_usado == 0) { cabraJugador->curar(80); cout << ">> Tomaste Nesti y recuperaste 80 HP.\n"; turno_valido = true; }
             else if (item_usado == 1) { buffAtaque = 40; cout << ">> ¡Yamato Rebelion! Ataque masivo por este turno.\n"; turno_valido = true; }
             else if (item_usado == 2) { buffCritico = 40; cout << ">> ¡Bebiste Monster! Probabilidad de critico disparada este turno.\n"; turno_valido = true; }
             else if (item_usado == 3) { buffDefensa = 40; cout << ">> ¡CQC Activo! Defensa impenetrable este turno.\n"; turno_valido = true; }
@@ -152,8 +152,8 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
 
                 if (probabilidad(gen) > 50 && cpu->usarObjetoCPU(0)) {
 
-                    cabraCpu->curar(50);
-                    cout << ">> El enemigo usa un nesti y recupera 50 HP." << endl;
+                    cabraCpu->curar(80);
+                    cout << ">> El enemigo usa un nesti y recupera 80 HP." << endl;
                     securo = true;
                 }
             }
