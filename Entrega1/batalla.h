@@ -11,6 +11,12 @@ class Batalla {
 
     public:
  void inicio_combat(EntrenaCabra* Jugador, EntrenaCabra* cpu); // inicia la batalla
+
+ void Historialbatallas();
+
+ void GuardarHistorial(std::string Historial);
+
+// commit prueba 
 };
 
 #endif

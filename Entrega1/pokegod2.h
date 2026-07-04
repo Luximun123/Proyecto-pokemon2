@@ -39,7 +39,12 @@ class Pokemones {
         int getDefensa();
         int getVelocidad();
 
-        
+        //cambios 
+        void Leer_poke();
+
+        void BuscarPokemon(std::string nombre);
+
+        //prueba commit 
 };
 
 #endif

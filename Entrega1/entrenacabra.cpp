@@ -133,7 +133,134 @@ using namespace std;
     return false;
 }
 
+// CAMBIOS NUEVOS 
+
+    Void EntrenaCabra::guardar_equipo(EntrenaCabra* entrenador_1, EntrenaCabra* entrenador_2){
+        ofstream archivoGuardar("equipos.txt");
+            //entrenador 1
+
+	    if (archivoGuardar.is_open()) {
+		    archivoGuardar << "Arthur_Morgan "; 
+		    for (int i = 0; i < 3; i++) {
+			    Pokemones* p = e1->obtenerPokemon(i);
+			    if (p != nullptr) {
+				// Reemplazamos espacios por guiones bajos para que al leer no se rompa		               
+				    string nombrePoke = p->obtenerNombre();
+				    for(size_t j = 0; j < nombrePoke.length(); j++) {
+					    if(nombrePoke[j] == ' ') nombrePoke[j] = '_';
+				    }
+				    archivoGuardar << nombrePoke << " ";
+			    } 
+			    else {
+				    archivoGuardar << "Ninguno " << endl; // Por si no tiene un pokemon en esa ranura
+			    }
+		    }
+		    archivoGuardar << endl; 
+		
+		       //entrenador 2
+
+		    archivoGuardar << "John_Marston ";
+		    for (int i = 0; i < 3; i++) {
+			    Pokemones* p = e2->obtenerPokemon(i);
+			    if (p != nullptr) {
+			           	
+				    string nombrePoke = p->obtenerNombre();
+				    for(size_t j = 0; j < nombrePoke.length(); j++) {
+					    if(nombrePoke[j] == ' ') nombrePoke[j] = '_';
+				    }
+				    archivoGuardar << nombrePoke << " ";
+			    } 
+			    else {
+				    archivoGuardar << "Ninguno " << endl;
+			    }
+		    }
+		    archivoGuardar << endl;
+		
+		    archivoGuardar.close();
+		    cout << "Equipos guardados con éxito" << endl;
+	    } 
+	    else {
+		    cout << "Error: No se pudo abrir el archivo para guardar los equipos" << endl;
+	    }
+}
 
 
+void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
+	ifstream archivoCargar("equipos.txt");
+	if (!archivoCargar.is_open()) {
+		cout << "\n>> Error: No se encontró el archivo 'equipos.txt'" << endl;
+		return;
+	}
+	
+	string nombreEntrenador;
+	string p1, p2, p3;
+
+	//Entrenador 1
+	if (archivoCargar >> nombreEntrenador >> p1 >> p2 >> p3) {
+        // Buscamos y creamos los pokemones correspondientes
+
+        //NOTA: En caso de haber error aqui cambia "buscarPokemon" a  "buscarYCrearPokemon"
+
+
+        Pokemones* poke1 = buscarPokemon(p1);
+        Pokemones* poke2 = buscarPokemon(p2);
+        Pokemones* poke3 = buscarPokemon(p3);               
+        // Los asignamos a las ranuras 0, 1 y 2
+        if (poke1 != nullptr) e1->AgregarPokemon(poke1, 0);
+        if (poke2 != nullptr) e1->AgregarPokemon(poke2, 1);
+        if (poke3 != nullptr) e1->AgregarPokemon(poke3, 2);
+    }
+
+	//Entrenador 2
+	if (archivoCargar >> nombreEntrenador >> p1 >> p2 >> p3) {
+		// Buscamos y creamos los pokemones correspondientes
+		Pokemones* poke1 = buscarPokemon(p1);
+		Pokemones* poke2 = buscarPokemon(p2);
+		Pokemones* poke3 = buscarPokemon(p3);
+		
+		if (poke1 != nullptr) e1->AgregarPokemon(poke1, 0);
+		if (poke2 != nullptr) e2->AgregarPokemon(poke2, 1);
+		if (poke3 != nullptr) e2->AgregarPokemon(poke3, 2);
+	}
+	
+	archivoCargar.close();
+	cout << "\n Equipos cargados exitosamente desde el archivo";
+}
+    
+
+    void EntrenaCabra::editarEquipo(EntrenaCabra* entrenador) {
+    cout << "\n EDITAR EQUIPO DE " << entrenador->obtenerNombre() << endl;
+    entrenador->MostrarEquipo(); // Mostramos el equipo actual para que vea los indices (0, 1, 2)
+    
+    int posicion;
+    cout << "Que posicion de tu equipo deseas cambiar? (0, 1 o 2): ";
+    cin >> posicion;
+
+    if (posicion < 0 || posicion > 2) {
+        cout << " Posición invalida. Debe ser 0, 1 o 2.\n";
+        return;
+    }
+
+    
+    cout << "\nCargando pokemones disponibles desde el pool...\n";
+    leer_poke(); // Reutilizamos la función de listar el pool que hicieron al principio
+
+    string nombreElegido;
+    cout << "\nEscribe el nombre EXACTO del Pokemon que deseas integrar: ";
+    cin >> nombreElegido;
+
+    // Buscamos y creamos el nuevo Pokemon usando la funcion auxiliar
+    Pokemones* nuevoPoke = buscarPokemon(nombreElegido);
+
+    if (nuevoPoke != nullptr) {
+        // Asignamos el nuevo objeto en la posición seleccionada
+        entrenador->AgregarPokemon(nuevoPoke, posicion);
+        cout << "\n " << nombreElegido << " ha sido asignado con exito a la posicion " << posicion << "\n";
+    } else {
+        cout << "\n Error: No se encontro ningun Pokemon con ese nombre en el pool" << endl;
+    }
+}
+
+// prueba commit 
 
 

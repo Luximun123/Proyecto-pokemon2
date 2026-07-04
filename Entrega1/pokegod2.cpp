@@ -1,5 +1,6 @@
 #include "pokegod2.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -60,3 +61,49 @@ void Pokemones::curar(int cantidad) {
     int Pokemones::getVelocidad() {return velocidad;}
     string Pokemones::obtenerNombre() {return nombre; }
     string Pokemones::obtenerTipo() {return tipo; }
+
+
+// CAMBIOS  NUEVOS 
+
+   void Pokemones::leer_poke(){
+	ifstream archivo("Pokemon_pool.txt");
+	
+	string nombre, especie, tipo;
+	int vida, salud, ataque, defensa, velocidad, nivel;
+	
+	if(archivo.is_open()){
+		while (archivo >> nombre >> especie >> tipo >> vida >> salud >> ataque >> defensa >> velocidad >> nivel){
+			Pokemones* nuevoPokemon = new Pokemones(nombre, especie, tipo, vida, salud, ataque, defensa, velocidad, nivel);
+			
+			nuevoPokemon->mostrarInformacion();
+			
+			delete nuevoPokemon;
+		}	
+	}
+	else{
+		cout << "ERROR! No se pudo abrir el archivo del pool" << endl;
+		return;
+	}	
+	archivo.close();		
+    }
+
+
+    Pokemones* Pokemones::buscarPokemon(string nombreBuscado) {
+	ifstream buscar("pokemon_pool.txt");
+	string nombre, especie, tipo;
+	int vida, salud, ataque, defensa, velocidad, nivel;
+	
+	if(buscar.is_open()) {
+		while (buscar >> nombre >> especie >> tipo >> vida >> salud >> ataque >> defensa >> velocidad >> nivel) {
+			if (nombre == nombreBuscado) {
+				buscar.close(); 
+				// Encontrado: lo creamos en memoria y lo devolvemos            
+				return new Pokemones(nombre, especie, tipo, vida, salud, ataque, defensa, velocidad, nivel);
+			}
+		}
+		buscar.close();
+	}
+	return nullptr; 
+}
+
+//prueba commit 

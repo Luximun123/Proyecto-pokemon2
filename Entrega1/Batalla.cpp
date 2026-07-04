@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include <fstream>
 
 using namespace std;
 
@@ -186,4 +187,39 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         cout << "  MISION FALLIDA. Todos tus agentes han sido eliminados. " << endl;
     }
 
-}
+// CAMBIOS NUEVOS 
+
+    void Batalla::Historialbatallas(){  // Leer y mostrar historial de batalla 
+	    string linea;
+	
+	    if(leer_historial.is_open()){
+		    cout << "     HISTORIAL DE BATALLAS     " << endl;
+		
+		    while (getline(leer_historial, linea)){
+			cout << " " << linea << endl;
+		    }
+		    leer_historial.close();
+	    }
+	    else{
+		    // Si no existe el archivo todavía, significa que no han jugado la primera batalla
+		    cout << "Aun no hay batallas registradas en el historial" << endl;
+		    return;
+	    }   
+    }
+
+    //Guardar Historial de batalla 
+    void Batalla::GuardarHistorial(string Historial);
+    ofstream savehistorial("historial.txt", ios::app);
+	    if (savehistorial.is_open()){
+		    savehistorial << resultado << endl;
+		    savehistorial.close();
+		    cout << "Batalla registrada en el historial \n";
+	    }
+	    else{
+		    cout << "ERROR! no se pudo registrar la batalla en el historial \n";
+	    }
+
+} //llave de batalla 
+
+
+//prueba commit 
