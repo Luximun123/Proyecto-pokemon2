@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <randdom>
+#include <random>
 using namespace std;
 
 
@@ -26,7 +26,7 @@ using namespace std;
         }
     }
 
-    EntrenaCabra::~EntrenaCabra() {
+    EntrenaCabra::EntrenaCabra() {
         for(int i=0 ; i<cantidadPokemones; i++){
             if (equipo[i] != nullptr){
                 delete equipo[i];
@@ -138,7 +138,7 @@ using namespace std;
 
 // CAMBIOS NUEVOS 
 
-    void EntrenaCabra::guardar_equipo(EntrenaCabra* entrenador_1, EntrenaCabra* entrenador_2){
+    void EntrenaCabra::guardar_equipo(EntrenaCabra* e1, EntrenaCabra* e2){
         ofstream archivoGuardar("equipos.txt");
             //entrenador 1
 
@@ -188,7 +188,7 @@ using namespace std;
 }
 
 // EQUIPO DE LA CPU
-void EntrenaCabra::equipoCPU(EntrenaCabra* e2, EntrenaCabra* e1){
+void EntrenaCabra::EquipoCPU(EntrenaCabra* e2, EntrenaCabra* e1){
 
     int cantPokemon=0 ;
     string lineas;
@@ -202,18 +202,20 @@ void EntrenaCabra::equipoCPU(EntrenaCabra* e2, EntrenaCabra* e1){
             cantPokemon++;
         }
         //pokemon aleatorio
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> lista(0, cantPokemon-1);
+       
 
         // comprobar que no repita pokemones del jugador 
 
         for(int i=0; i<3; i++){
+            random_device rd;
+            mt19937 gen(rd());
+            uniform_int_distribution<> lista(0, cantPokemon-1);
+
             Pokemones* poke;
             bool repetido = true;
             while(repetido){
                 repetido = false;
-                poke = buscarPokemon(obtenerNombre(lista(gen)));
+                poke = Pokemones::buscarPokemon(obtenerNombre(lista(gen)));
 
                 for(int j=0; j<3;j++){
 

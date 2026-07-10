@@ -42,7 +42,7 @@ class Pokemones {
         //cambios 
         void Leer_poke();
 
-        void BuscarPokemon(std::string nombre);
+        void Pokemones::buscarPokemon(std::string nombreBuscado);
 
      
 };

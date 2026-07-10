@@ -20,7 +20,7 @@ class EntrenaCabra{
     public:
        
         EntrenaCabra(std::string nombre, int id);
-        ~EntrenaCabra();
+        EntrenaCabra();
         
         int usarObjeto();
         bool cambiarPokemon();

@@ -65,7 +65,7 @@ void Pokemones::curar(int cantidad) {
 
 // CAMBIOS  NUEVOS 
 
-   void Pokemones::leer_poke(){
+   void Pokemones::Leer_poke(){
 	ifstream archivo("Pokemon_pool.txt");
 	
 	string nombre, especie, tipo;
