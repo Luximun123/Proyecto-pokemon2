@@ -180,12 +180,17 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
     }
     
     // Evaluacion final del combate
+     // Evaluacion final del combate
     cout << "\n";
+    string resultado;
     if (!jugador->estasmuerto()){
         cout << "  WIPEOUT! Enemigos eliminados. Victoria Proxy! " << endl;
+        resultado = "Victoria de " + jugador->obtenerNombre() + " contra " + cpu->obtenerNombre();
     } else {
         cout << "  MISION FALLIDA. Todos tus agentes han sido eliminados. " << endl;
+        resultado = "Victoria de " + cpu->obtenerNombre() + " contra " + jugador->obtenerNombre();
     }
+	
 
 // CAMBIOS NUEVOS 
 
