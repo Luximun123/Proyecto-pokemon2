@@ -44,7 +44,7 @@ class Pokemones {
 
         void BuscarPokemon(std::string nombre);
 
-        //prueba commit 
+     
 };
 
 #endif

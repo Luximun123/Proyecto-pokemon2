@@ -30,9 +30,9 @@ class EntrenaCabra{
         void MostrarMochila();
 
 
-        void AgregarPokemon(Pokemones* p, int posicion);  // FUNCION A TERMINAR
+        void AgregarPokemon(Pokemones* p, int posicion); 
 
-        // cambios nuevos 
+        // CAMBIOS NUEVOS
 
         void guardar_equipo(EntrenaCabra* e1, EntrenaCabra* e2);
         
@@ -40,12 +40,14 @@ class EntrenaCabra{
 
         void editarEquipo(EntrenaCabra*entrenador);
 
+        void EquipoCPU(EntrenaCabra* e2, EntrenaCabra* e1);
+
         Pokemones* obtenerActivo();
         std::string obtenerNombre();
         Pokemones* obtenerPokemon(int indice);    
+
 };
 
-//prueba commit 
 
 
 

@@ -8,8 +8,7 @@ using namespace std;
 
 int main(){
 
-    // prueba commit
-    // KKKKK
+  
     cout << R"(
 ⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⢻⣿⡗⢶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣄
@@ -34,16 +33,17 @@ int main(){
     EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
     EntrenaCabra *entrenador_2 = new EntrenaCabra("John Marston", 1911);
    
- //nombre, especie, tipo, vida ,salud, ataque, defensa, velocidad, nivel
-    
+
     entrenador_1->AgregarPokemon(p1,0);
     entrenador_1->AgregarPokemon(p2,1);
     entrenador_1->AgregarPokemon(p3,2);
 
+    /*
     entrenador_2->AgregarPokemon(p4,0);
     entrenador_2->AgregarPokemon(p5,1);
     entrenador_2->AgregarPokemon(p6,2);
-    
+    */
+
     cargarEquipo(entrenador_1, entrenador_2); 
 
 int opcion = 0;

@@ -1,5 +1,8 @@
 #include "entrenacabra.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <randdom>
 using namespace std;
 
 
@@ -135,7 +138,7 @@ using namespace std;
 
 // CAMBIOS NUEVOS 
 
-    Void EntrenaCabra::guardar_equipo(EntrenaCabra* entrenador_1, EntrenaCabra* entrenador_2){
+    void EntrenaCabra::guardar_equipo(EntrenaCabra* entrenador_1, EntrenaCabra* entrenador_2){
         ofstream archivoGuardar("equipos.txt");
             //entrenador 1
 
@@ -184,6 +187,58 @@ using namespace std;
 	    }
 }
 
+// EQUIPO DE LA CPU
+void EntrenaCabra::equipoCPU(EntrenaCabra* e2, EntrenaCabra* e1){
+
+    int cantPokemon=0 ;
+    string lineas;
+
+    ifstream archivoPokemon("pokemon_pool.txt");
+    if(!archivoPokemon.is_open()){
+        cout<< "no se encuentra el archivo" <<endl;
+        return;
+    }
+        while(getline(archivoPokemon,lineas)){  //leer cada linea del archivo
+            cantPokemon++;
+        }
+        //pokemon aleatorio
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> lista(0, cantPokemon-1);
+
+        // comprobar que no repita pokemones del jugador 
+
+        for(int i=0; i<3; i++){
+            Pokemones* poke;
+            bool repetido = true;
+            while(repetido){
+                repetido = false;
+                poke = buscarPokemon(obtenerNombre(lista(gen)));
+
+                for(int j=0; j<3;j++){
+
+                    if(e1->obtenerPokemon(j) != nullptr && e1->obtenerPokemon(j)->obtenerNombre() == poke->obtenerNombre()){
+                        repetido = true;
+                        
+                    }
+                }
+
+                //comprobar que no se repita pokemon la cpu
+                for(int k=0; k<3; k++){
+                    if(e2->obtenerPokemon(k) != nullptr && e2->obtenerPokemon(k)->obtenerNombre() == poke->obtenerNombre()){    
+                    }
+                     repetido = true;             
+                }
+                if (poke != nullptr) 
+
+              // asignar pokemones aleatorio al segundo entrenador 
+                e2->AgregarPokemon(poke, i);
+            }
+
+        }
+archivoPokemon.close();
+}
+
 
 void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
 	ifstream archivoCargar("equipos.txt");
@@ -213,14 +268,20 @@ void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
 
 	//Entrenador 2
 	if (archivoCargar >> nombreEntrenador >> p1 >> p2 >> p3) {
+
+        equipoCPU(e2,e1)
+
+
 		// Buscamos y creamos los pokemones correspondientes
+    /*    
 		Pokemones* poke1 = buscarPokemon(p1);
 		Pokemones* poke2 = buscarPokemon(p2);
 		Pokemones* poke3 = buscarPokemon(p3);
 		
-		if (poke1 != nullptr) e1->AgregarPokemon(poke1, 0);
+		if (poke1 != nullptr) e2->AgregarPokemon(poke1, 0);
 		if (poke2 != nullptr) e2->AgregarPokemon(poke2, 1);
 		if (poke3 != nullptr) e2->AgregarPokemon(poke3, 2);
+        */
 	}
 	
 	archivoCargar.close();
@@ -261,6 +322,6 @@ void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
     }
 }
 
-// prueba commit 
+
 
 
