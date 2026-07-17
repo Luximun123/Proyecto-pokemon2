@@ -40,6 +40,7 @@ class EntrenaCabra{
 
         void editarEquipo(EntrenaCabra*entrenador);
 
+        void EquipoCPU(EntrenaCabra* e2, EntrenaCabra* e1);
 
         Pokemones* obtenerActivo();
         std::string obtenerNombre();

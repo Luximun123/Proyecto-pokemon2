@@ -72,9 +72,7 @@ if (equipo1Vacio || equipo2Vacio) {
     entrenador_1->AgregarPokemon(buscarPokemon("Capitano"), 1);
     entrenador_1->AgregarPokemon(buscarPokemon("Solid_Snake"), 2);
 
-    entrenador_2->AgregarPokemon(buscarPokemon("Big_Boss"), 0);
-    entrenador_2->AgregarPokemon(buscarPokemon("Wonder_Of_You"), 1);
-    entrenador_2->AgregarPokemon(buscarPokemon("Adam_Smasher"), 2);
+    entrenador_1->EquipoCPU(entrenador_2, entrenador_1);
 
     entrenador_1->guardar_equipo(entrenador_1, entrenador_2);
 }
