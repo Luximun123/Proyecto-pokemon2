@@ -10,7 +10,8 @@ class Batalla {
     
 
     public:
- void inicio_combat(EntrenaCabra* Jugador, EntrenaCabra* cpu); // inicia la batalla
+    
+ bool inicio_combat(EntrenaCabra* Jugador, EntrenaCabra* cpu, int idxJugador = 0, int idxCPU = 0);
 
  void Historialbatallas();
 

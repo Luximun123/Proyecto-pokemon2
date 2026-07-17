@@ -39,6 +39,8 @@ class Pokemones {
         int getDefensa();
         int getVelocidad();
 
+        std::string obtenerEspecie() const { return especie; }
+        int getNivel() const { return nivel; }
 
      
 };

@@ -37,6 +37,9 @@ using namespace std;
 
     void EntrenaCabra::AgregarPokemon(Pokemones* p, int posicion) {
         if (posicion >= 0 && posicion < cantidadPokemones) {
+           if (equipo[posicion] != nullptr) {
+            delete equipo[posicion]; // Libera la memoria del Pokémon anterior
+            }
             equipo[posicion] = p;
         }
     }
@@ -82,11 +85,11 @@ using namespace std;
 }
     
     void EntrenaCabra::MostrarMochila(){
-        cout << "\n     Mochila de " << Nombre << ":" << endl << endl;
+        cout << "\n     Mochila de " << Nombre << ":" << endl;
             for(int i = 0 ; i < 5; i++){
                 cout << i << ". " << mochila[i];
                 if (objetousado[i]) cout << " [AGOTADO]";
-                cout << endl << endl;
+                cout << endl;
     }
 }
     int EntrenaCabra::usarObjeto() {
@@ -194,105 +197,6 @@ using namespace std;
 
 // EQUIPO DE LA CPU
 
-void EntrenaCabra::EquipoCPU(EntrenaCabra* e2, EntrenaCabra* e1){
-
-    int cantPokemon=0 ;
-    string lineas;
-
-    ifstream archivoPokemon("Pokemon_pool.txt");
-
-    if(!archivoPokemon.is_open()){
-        cout<< "no se encuentra el archivo" <<endl;
-        return;
-    }
-
-        // Contar líneas del archivo
-        while(getline(archivoPokemon,lineas)){  //leer cada linea del archivo
-            cantPokemon++;
-        }
-      
-        archivoPokemon.close();
-
-        if (cantPokemon == 0) {
-        cout << "El archivo de pool está vacío." << endl;
-        return;
-        }
-    
-        //pokemon aleatorio
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> lista(0, cantPokemon-1);
-
-        for(int i=0; i<3; i++){
-
-
-            Pokemones* poke = nullptr;
-            bool repetido = true;
-
-
-            while(repetido){
-                repetido = false;
-            // Leer el archivo desde el principio para obtener el Pokémon en la línea aleatoria
-             ifstream archivo("Pokemon_pool.txt");   
-            
-            int lineaActual = 0;
-            string nombre, especie, tipo;
-            int vida, salud, ataque, defensa, velocidad, nivel;
-            int indiceAleatorio = lista(gen);
-
-            while (archivo >> nombre >> especie >> tipo >> vida >> salud >> ataque >> defensa >> velocidad >> nivel) {
-                
-                if (lineaActual == indiceAleatorio) {
-                    poke = new Pokemones(nombre, especie, tipo, vida, salud, ataque, defensa, velocidad, nivel);
-                    break;
-                }
-                lineaActual++;
-
-            }
-                archivo.close();
-
-                for(int j=0; j<3;j++){
-
-                    Pokemones* pJugador = e1->obtenerPokemon(j);
-                    if (pJugador != nullptr && pJugador->obtenerNombre() == nombre){
-                        repetido = true;
-                        break; // Salir del bucle si encontramos un Pokémon repetido 
-                                        }
-            }
-
-            // Verificar que no esté ya en el equipo de la CPU (e2) en posiciones anteriores
-            if (!repetido) {
-                for (int k = 0; k < i; k++) {
-                    Pokemones* pCPU = e2->obtenerPokemon(k);
-                    if (pCPU != nullptr && pCPU->obtenerNombre() == nombre) {
-                        repetido = true;
-                        break;
-                    }
-                }
-            }
-
-            // Si no se repite, salimos del while
-            if (!repetido) {
-                break;
-            }
-        }
-
-        // Asignar el Pokémon encontrado
-        if (poke != nullptr) {
-            e2->AgregarPokemon(poke, i);
-        } else {
-            
-            // Por si algo falla
-            cout << "Advertencia: no se pudo obtener Pokémon, usando Big_Boss" << endl;
-            e2->AgregarPokemon(buscarPokemon("Big_Boss"), i);
-        }
-    }
-}
-
-
-
-
-
 void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
 	ifstream archivoCargar("equipos.txt");
 	if (!archivoCargar.is_open()) {
@@ -334,6 +238,91 @@ void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
 	cout << "\n Equipos cargados exitosamente desde el archivo\n";
 }
     
+void EntrenaCabra::EquipoCPU(EntrenaCabra* e2, EntrenaCabra* e1) {
+    int cantPokemon = 0;
+    string lineas;
+
+    ifstream archivoPokemon("Pokemon_pool.txt");
+    if (!archivoPokemon.is_open()) {
+        cout << "No se encuentra el archivo Pokemon_pool.txt" << endl;
+        return;
+    }
+
+    // Contar líneas del archivo
+    while (getline(archivoPokemon, lineas)) {
+        cantPokemon++;
+    }
+    archivoPokemon.close();
+
+    if (cantPokemon == 0) {
+        cout << "El archivo de pool está vacío." << endl;
+        return;
+    }
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> lista(0, cantPokemon - 1);
+
+    for (int i = 0; i < 3; i++) {
+        Pokemones* poke = nullptr;
+        bool repetido = true;
+
+        while (repetido) {
+            repetido = false;
+            ifstream archivo("Pokemon_pool.txt");
+            int lineaActual = 0;
+            string nombre, especie, tipo;
+            int vida, salud, ataque, defensa, velocidad, nivel;
+            int indiceAleatorio = lista(gen);
+
+            while (archivo >> nombre >> especie >> tipo >> vida >> salud >> ataque >> defensa >> velocidad >> nivel) {
+                if (lineaActual == indiceAleatorio) {
+                    poke = new Pokemones(nombre, especie, tipo, vida, salud, ataque, defensa, velocidad, nivel);
+                    break;
+                }
+                lineaActual++;
+            }
+            archivo.close();
+
+            // Verificar que no esté en el equipo del jugador (e1)
+            for (int j = 0; j < 3; j++) {
+                Pokemones* pJugador = e1->obtenerPokemon(j);
+                if (pJugador != nullptr && pJugador->obtenerNombre() == nombre) {
+                    repetido = true;
+                    break;
+                }
+            }
+
+            // Verificar que no esté ya en el equipo de la CPU (e2) en anteriores
+            if (!repetido) {
+                for (int k = 0; k < i; k++) {
+                    Pokemones* pCPU = e2->obtenerPokemon(k);
+                    if (pCPU != nullptr && pCPU->obtenerNombre() == nombre) {
+                        repetido = true;
+                        break;
+                    }
+                }
+            }
+
+            // Si no se repite, salimos del while
+            if (!repetido) {
+                break;
+            }else {
+                delete poke;   
+                poke = nullptr;
+        }
+    }
+
+        // Asignar el Pokémon encontrado
+        if (poke != nullptr) {
+            e2->AgregarPokemon(poke, i);
+        } else {
+            // Fallback por si algo sale mal
+            cout << "Advertencia: no se pudo obtener Pokémon, usando Big_Boss" << endl;
+            e2->AgregarPokemon(buscarPokemon("Big_Boss"), i);
+        }
+    }
+}
 
     void EntrenaCabra::editarEquipo(EntrenaCabra* entrenador) {
     cout << "\n EDITAR EQUIPO DE " << entrenador->obtenerNombre() << endl;

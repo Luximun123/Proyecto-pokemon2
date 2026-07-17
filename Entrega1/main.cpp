@@ -2,6 +2,8 @@
 #include <string>
 #include "entrenacabra.h"
 #include "batalla.h"
+#include "partidas.h"  
+#include "sprites.h"
 #include <cstdlib>
 #include <fstream>
 #include <cstdio>
@@ -56,6 +58,9 @@ int main(){
     EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
     EntrenaCabra *entrenador_2 = new EntrenaCabra("John Marston", 1911);
    
+    bool batallaActiva = false; 
+    int idxJugador = 0;
+    int idxCPU = 0;
 
     entrenador_1->cargarEquipo(entrenador_1, entrenador_2); 
 
@@ -81,7 +86,7 @@ if (equipo1Vacio || equipo2Vacio) {
 pausarPantalla();
 	
 int opcion = 0;
-    while (opcion != 5) {
+    while (opcion != 6) {
 
     limpiarPantalla();
         cout << "\n    MENU PRINCIPAL  \n";
@@ -89,7 +94,8 @@ int opcion = 0;
 		cout << "2. Ver equipo del entrenador 2\n"; 
 		cout << "3. Iniciar batalla\n";
 		cout << "4. Gestionar ficheros\n"; 
-		cout << "5. Salir\n"; 
+        cout << "5. Gestionar partidas" << endl;
+		cout << "6. Salir\n"; 
 
 		cout << "Que opcion desea: ";
 		cin >> opcion;
@@ -108,10 +114,25 @@ int opcion = 0;
             pausarPantalla();
         } 
         else if (opcion == 3) {
-            Batalla Combate;
-            Combate.inicio_combat(entrenador_1, entrenador_2);
-            cout << "Iniciando batalla\n";   
-            pausarPantalla();  
+Batalla batalla;
+bool completada;
+        if (batallaActiva) {
+            cout << "\nReanudando partida guardada en medio del combate\n";
+            // Iniciamos la batalla pasando los índices de los agentes que estaban activos
+            completada = batalla.inicio_combat(entrenador_1, entrenador_2, idxJugador, idxCPU);
+           
+        } else {
+            cout << "\nIniciando un nuevo combate\n";
+           completada = batalla.inicio_combat(entrenador_1, entrenador_2, 0, 0);
+        } 
+
+        if (completada) {
+            batallaActiva = false;   // Una vez completada, desactivamos el estado activo
+        }
+        if (!completada) {
+            batallaActiva = true; 
+        }
+        pausarPantalla();  
 
         }
         //MENU NUEVO 
@@ -128,7 +149,7 @@ int opcion = 0;
 				cout << "3. Guardar equipo a fichero\n"; 
 				cout << "4. Cargar equipo desde fichero\n"; 
 				cout << "5. Ver historial de batallas\n"; 
-                cout << "6. Eliminar guardados\n";
+                cout << "6. Eliminar guardado\n";
 				cout << "7. Volver\n"; 
 				cout << "Seleccione una opcion: ";
 				cin >> subOpcion;
@@ -188,12 +209,65 @@ int opcion = 0;
 
                     pausarPantalla();
                 }
-        // subOpcion == 7 -> sale del while
-    
-
 			}
 		}
+else if (opcion == 5) {
 
+    
+        int subOpcionPartida = 0;
+        while (subOpcionPartida != 4) {
+            limpiarPantalla();
+            cout << "--- GESTION DE PARTIDAS (BINARIO) ---" << endl;
+            cout << "1. Guardar partida actual (partida.bin)" << endl;
+            cout << "2. Cargar partida guardada (partida.bin)" << endl;
+            cout << "3. Ver sprites de Pokemon" << endl;
+            cout << "4. Volver" << endl;
+            cout << "Selecciona una opcion: ";
+            cin >> subOpcionPartida;
+
+            if (subOpcionPartida == 1) {
+                // Guardamos el estado actual (fuera de batalla, por lo que batallaActiva = false)
+                if (guardarPartida(entrenador_1, entrenador_2, batallaActiva, idxJugador, idxCPU)) {
+                    cout << "\nPartida guardada correctamente en binario (partida.bin).\n";
+                } else {
+                    cout << "\nError al guardar la partida.\n";
+                }
+                pausarPantalla();
+            }
+            else if (subOpcionPartida == 2) {
+                if (cargarPartida(entrenador_1, entrenador_2, batallaActiva, idxJugador, idxCPU)) {
+                    cout << "\nPartida binaria cargada exitosamente.\n";
+                    if (batallaActiva) {
+                        cout << "[ATENCION] Se detecto un combate guardado activo. Selecciona la opcion 3 en el menu principal para reanudarlo.\n";
+                    }
+                } else {
+                    cout << "\nError al cargar la partida o archivo corrupto (Checksum/Magic Number invalido).\n";
+               
+                    if (entrenador_1 == nullptr || entrenador_2 == nullptr) {
+                        cout << "Reestableciendo entrenadores por defecto de forma segura...\n";
+                        delete entrenador_1;
+                        delete entrenador_2;
+                        entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
+                        entrenador_2 = new EntrenaCabra("John Marston", 1911);
+                        entrenador_1->AgregarPokemon(buscarPokemon("Promeia"), 0);
+                        entrenador_1->AgregarPokemon(buscarPokemon("Capitano"), 1);
+                        entrenador_1->AgregarPokemon(buscarPokemon("Solid_Snake"), 2);
+                        entrenador_1->EquipoCPU(entrenador_2, entrenador_1);
+                    }
+                }
+                pausarPantalla();
+            }
+            else if (subOpcionPartida == 3) {
+                limpiarPantalla();
+                cout << "--- VISUALIZADOR DE SPRITES ---" << endl;
+                cout << "Introduce la especie del Pokemon (ej: Promeia, Capitano, Dante): ";
+                string esp;
+                cin >> esp;
+                mostrarSprite(esp); // Llama a la función de sprites.cpp
+                pausarPantalla();
+            }
+        }
+    }
 
   
         

@@ -21,7 +21,12 @@ class EntrenaCabra{
        
         EntrenaCabra(std::string nombre, int id);
         ~EntrenaCabra();
-        
+
+        bool objetoUsado(int indice) const { return objetousado[indice]; }
+        void setObjetoUsado(int indice, bool usado) { objetousado[indice] = usado; }
+        int obtenerIndiceActivo() const { return pokemonplay; }
+        void setIndiceActivo(int idx) { pokemonplay = idx; }
+
         int usarObjeto();
         bool cambiarPokemon();
         bool estasmuerto();

@@ -3,7 +3,8 @@
 #include <string>
 #include <random>
 #include <fstream>
-
+#include "sprites.h"
+#include "partidas.h"
 using namespace std;
 
 float Batalla::ventaja(string tipo_atacante, string tipo_defensor){
@@ -26,7 +27,7 @@ float Batalla::ventaja(string tipo_atacante, string tipo_defensor){
 }
 
 // Ciclo principal para el combate
-void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
+bool Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu, int indice_jugador, int indice_cpu){
     random_device rd; 
     mt19937 gen(rd()); 
     uniform_int_distribution<> probabilidad(1, 100);
@@ -34,8 +35,6 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
     cout << "\n";
     cout << "  INICIANDO SIMULACION DE COMBATE" << endl;
     cout << "  PROXIES EN LA SIMULACION: " << jugador->obtenerNombre() << " VS " << cpu->obtenerNombre() << endl;
-    
-    int indice_jugador = 0, indice_cpu = 0;
     
     // Obtenemos los agentes activos iniciales usando las flechas (->)
     Pokemones* cabraJugador = jugador->obtenerPokemon(indice_jugador);
@@ -64,7 +63,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
                     }
                 }
             } while((cabraJugador == nullptr || cabraJugador->estaDebilitado()) && !jugador->estasmuerto());
-            
+            jugador->setIndiceActivo(indice_jugador);  // <--- AÑADIR
             continue;
         }
         
@@ -75,20 +74,29 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
 
          if(!cpu->estasmuerto()) {
 
-            do{
-                indice_cpu++;
-            // Validamos que le queden criaturas a la CPU antes de mover el puntero
-                cabraCpu = cpu->obtenerPokemon(indice_cpu);
-             } while  (indice_cpu < 3 && (cabraCpu == nullptr || cabraCpu->estaDebilitado()));
-            
-             if (cabraCpu != nullptr) {
-             cout << ">> El rival despliega a su siguiente agente: " << cabraCpu->obtenerNombre() << endl;
+            for (int k = 0; k < 3; k++) {
+                Pokemones* temp = cpu->obtenerPokemon(k);
+                if (temp != nullptr && !temp->estaDebilitado()) {
+                    indice_cpu = k;
+                    cabraCpu = temp;
+                    cpu->setIndiceActivo(indice_cpu);
+                    cout << ">> El rival despliega a su siguiente agente: " << cabraCpu->obtenerNombre() << endl;
+                    break;
+                }
             }
-          }
-            continue;
+        }
+        
+        continue;
+
         }
         
         // Interfaz de estado
+        Pokemones* pJugador = jugador->obtenerPokemon(indice_jugador);
+        Pokemones* pCpu = cpu->obtenerPokemon(indice_cpu);
+        if (pJugador && pCpu) {
+            mostrarSpritesEnBatalla(pJugador, pCpu); // Muestra los sprites lado a lado
+        }
+
         cout << "\n";
         cout << " TU AGENTE:  " << cabraJugador->obtenerNombre() << " [" << cabraJugador->obtenerTipo() << "] | Vida: " << cabraJugador->getVida() << endl;
         cout << " RIVAL CPU:  " << cabraCpu->obtenerNombre() << " [" << cabraCpu->obtenerTipo() << "] | Vida: " << cabraCpu->getVida() << endl;
@@ -96,7 +104,8 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         // Mini Menu para las opciones del proxy
         cout << "\n1. Ejecutar Ataque Basico / Especial" << endl;
         cout << "2. Desplegar Gadget (Mochila) " << endl;
-        cout << "3. Relevo Tactico (Cambiar Agente) " << endl <<endl;
+        cout << "3. Relevo Tactico (Cambiar Agente) " << endl;
+        cout << "4. Guardar Partida y Salir" << endl <<endl;
         cout << "Selecciona tu comando: ";
         int opcion;
         cin >> opcion;
@@ -151,6 +160,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
 
             if (nuevoIndice != indice_jugador && nuevoPokemon != nullptr && !nuevoPokemon->estaDebilitado()) {
                 indice_jugador = nuevoIndice;
+                jugador->setIndiceActivo(nuevoIndice);
                 cabraJugador = nuevoPokemon;
                 cout << "\n >> ¡Entrando al campo de batalla! " << cabraJugador->obtenerNombre() << endl;
                 turno_valido = true;
@@ -158,7 +168,19 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
                 cout << "Relevo invalido o agente sin energia. Intenta de nuevo." << endl;
             }
         }
-        
+        else if (opcion == 4) { 
+            
+            cout << "\nGuardando el estado actual de la batalla..." << endl;
+   
+            // Guardamos pasando 'true' en batallaActiva, y mandando los índices de los Pokémon actuales
+            if (guardarPartida(jugador, cpu, true, indice_jugador, indice_cpu)) {
+                cout << "¡Partida guardada correctamente en 'partida.bin'!" << endl;
+                cout << "Saliendo al menu principal..." << endl;
+            } else {
+                cout << "Error al intentar guardar la partida." << endl;
+            }
+            return false; // Salimos inmediatamente de la función de combate regresando al menú principal
+        }
         // Turno de la CPU
         if (turno_valido && !cabraCpu->estaDebilitado()){
             cout << "\n----------------------------------------" << endl;
@@ -194,6 +216,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
            cout << ">> " << cabraCpu->obtenerNombre() << " contraataca. Daño recibido en tu agente: " << danioCpu << endl;            
         }
         cout << "\n\n----------------------------------------" << endl;
+        buffDefensa = 0;
         }
     
     }
@@ -211,6 +234,8 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
     }
 
     GuardarHistorial(resultado);
+    guardarPartida(jugador, cpu, false, 0, 0);
+    return true; // Retornamos true para indicar que la batalla terminó y no se guardó en medio
 }
 // CAMBIOS NUEVOS 
 
