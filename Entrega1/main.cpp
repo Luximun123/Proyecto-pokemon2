@@ -4,6 +4,7 @@
 #include "batalla.h"
 #include <cstdlib>
 #include <fstream>
+#include <cstdio>
 using namespace std;
 
 // Función para limpiar la pantalla
@@ -118,7 +119,7 @@ int opcion = 0;
         else if (opcion == 4) {
 			// SUBMENÚ DE GESTIÓN DE ARCHIVOS 
 			int subOpcion = 0;
-			while (subOpcion != 6) { 
+			while (subOpcion != 7) { 
                 limpiarPantalla();
 
 				cout << "\n--- GESTION DE FICHEROS ---\n";
@@ -127,7 +128,8 @@ int opcion = 0;
 				cout << "3. Guardar equipo a fichero\n"; 
 				cout << "4. Cargar equipo desde fichero\n"; 
 				cout << "5. Ver historial de batallas\n"; 
-				cout << "6. Volver\n"; 
+                cout << "6. Eliminar guardados\n";
+				cout << "7. Volver\n"; 
 				cout << "Seleccione una opcion: ";
 				cin >> subOpcion;
 				cout << endl << endl;
@@ -167,6 +169,28 @@ int opcion = 0;
                     pausarPantalla();
 
 				}
+                else if (subOpcion == 6) {   // <--- NUEVO CASO: BORRAR EQUIPO
+                    char confirmar;
+                        cout << "¿Estás seguro de que quieres borrar el último equipo guardado? (s/n): ";
+                        cin >> confirmar;
+                    if (confirmar == 's' || confirmar == 'S') {
+                        if (remove("equipos.txt") == 0) {
+                            cout << "\nArchivo 'equipos.txt' borrado correctamente.\n";
+                            cout << "Los equipos actuales no se ven afectados, pero la próxima vez que cargues se generarán aleatorios.\n";
+                       } 
+                       else {
+                            cout << "\nNo se encontró el archivo 'equipos.txt' para borrar.\n";
+                       }
+                    } 
+                    else {
+                        cout << "\nOperación cancelada.\n";
+                    }
+
+                    pausarPantalla();
+                }
+        // subOpcion == 7 -> sale del while
+    
+
 			}
 		}
 
