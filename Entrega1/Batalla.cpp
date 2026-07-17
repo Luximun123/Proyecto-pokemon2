@@ -8,13 +8,13 @@ using namespace std;
 
 float Batalla::ventaja(string tipo_atacante, string tipo_defensor){
     // Ventajas: Fuego > Hielo > Electrico > Eter > Fisico > Fuego
-    if (tipo_atacante == "Fuego" && tipo_defensor == "Hielo") return 2.0;
-    if (tipo_atacante == "Hielo" && tipo_defensor == "Electrico") return 2.0;
-    if (tipo_atacante == "Electrico" && tipo_defensor == "Eter") return 2.0;
-    if (tipo_atacante == "Eter" && tipo_defensor == "Fisico") return 2.0;
-    if (tipo_atacante == "Fisico" && tipo_defensor == "Fuego") return 2.0;
+    if (tipo_atacante == "Fuego" && tipo_defensor == "Hielo") return 1.5;
+    if (tipo_atacante == "Hielo" && tipo_defensor == "Electrico") return 1.5;
+    if (tipo_atacante == "Electrico" && tipo_defensor == "Eter") return 1.5;
+    if (tipo_atacante == "Eter" && tipo_defensor == "Fisico") return 1.5;
+    if (tipo_atacante == "Fisico" && tipo_defensor == "Fuego") return 1.5;
     
-    // Desventajas (Integradas aqui para no modificar batalla.h)
+    // Desventajas
     if (tipo_atacante == "Hielo" && tipo_defensor == "Fuego") return 0.5;
     if (tipo_atacante == "Electrico" && tipo_defensor == "Hielo") return 0.5;
     if (tipo_atacante == "Eter" && tipo_defensor == "Electrico") return 0.5;
@@ -41,8 +41,11 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
     Pokemones* cabraJugador = jugador->obtenerPokemon(indice_jugador);
     Pokemones* cabraCpu = cpu->obtenerPokemon(indice_cpu);
     
+     //variables temporales para los buffs de ataque, defensa y critico
+    int buffAtaque = 0, buffDefensa = 0, buffCritico = 0;
+
     while(!jugador->estasmuerto() && !cpu->estasmuerto()){
-        
+
         // Control por si nuestro agente es eliminado 
         if(cabraJugador->estaDebilitado()){
             cout << "El agente " << cabraJugador->obtenerNombre() << " sufrio demasiado. Solicitando relevo" << endl;
@@ -69,13 +72,19 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         if(cabraCpu->estaDebilitado()){
             cout << "\n El agente enemigo " << cabraCpu->obtenerNombre() << " fue ELIMINADO" << endl;
             cabraJugador->subirNivel();
-            indice_cpu++;
-            
+
+         if(!cpu->estasmuerto()) {
+
+            do{
+                indice_cpu++;
             // Validamos que le queden criaturas a la CPU antes de mover el puntero
-            if(!cpu->estasmuerto()) {
                 cabraCpu = cpu->obtenerPokemon(indice_cpu);
-                cout << ">> El rival despliega a su siguiente agente: " << cabraCpu->obtenerNombre() << endl;
+             } while  (indice_cpu < 3 && (cabraCpu == nullptr || cabraCpu->estaDebilitado()));
+            
+             if (cabraCpu != nullptr) {
+             cout << ">> El rival despliega a su siguiente agente: " << cabraCpu->obtenerNombre() << endl;
             }
+          }
             continue;
         }
         
@@ -83,27 +92,26 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         cout << "\n";
         cout << " TU AGENTE:  " << cabraJugador->obtenerNombre() << " [" << cabraJugador->obtenerTipo() << "] | Vida: " << cabraJugador->getVida() << endl;
         cout << " RIVAL CPU:  " << cabraCpu->obtenerNombre() << " [" << cabraCpu->obtenerTipo() << "] | Vida: " << cabraCpu->getVida() << endl;
-        
-        //variables temporales para los buffs de ataque, defensa y critico
-        int buffAtaque = 0, buffDefensa = 0, buffCritico = 0;
-
+        cout << endl;
         // Mini Menu para las opciones del proxy
-        cout << "1. Ejecutar Ataque Basico / Especial" << endl;
+        cout << "\n1. Ejecutar Ataque Basico / Especial" << endl;
         cout << "2. Desplegar Gadget (Mochila) " << endl;
-        cout << "3. Relevo Tactico (Cambiar Agente) " << endl;
+        cout << "3. Relevo Tactico (Cambiar Agente) " << endl <<endl;
         cout << "Selecciona tu comando: ";
         int opcion;
         cin >> opcion;
         
         bool turno_valido = false;
-        
+        cout<<"\n";
+
         if(opcion == 1){
+            cout << "\n----------------------------------------" << endl;
             // Logica para el dano de los atributos
             float multiplicador = ventaja(cabraJugador->obtenerTipo(), cabraCpu->obtenerTipo());
             int danio = ((cabraJugador->getAtaque() + buffAtaque) - (cabraCpu->getDefensa() / 2)) * multiplicador;
             if (danio <= 0) danio = 1; // Para que no cure si la defensa es muy alta
             
-            if (probabilidad(gen) < (cabraJugador->getVelocidad() + buffCritico)) {
+            if (probabilidad(gen) < (cabraJugador->getVelocidad()/10 + buffCritico)) {
                 danio *= 1.5; cout << "ANOMALIA APLICADA: EFECTO CRITICO POR VELOCIDAD\n";
             }
             cabraCpu->recibirGolpes(danio);
@@ -114,14 +122,23 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
             cout << "\n Daño infligido: " << danio << endl;
             
             turno_valido = true;
+            buffAtaque = 0;
+            buffCritico = 0;
+
         }
         else if (opcion == 2) {
             int item_usado = jugador->usarObjeto(); 
+
+             if (item_usado == -1) {
+            cout << "No se pudo usar el objeto.\n";
+            turno_valido = false; // no gasta turno
+            } else {
             if (item_usado == 0) { cabraJugador->curar(80); cout << ">> Tomaste Nesti y recuperaste 80 HP.\n"; turno_valido = true; }
             else if (item_usado == 1) { buffAtaque = 40; cout << ">> ¡Yamato Rebelion! Ataque masivo por este turno.\n"; turno_valido = true; }
             else if (item_usado == 2) { buffCritico = 40; cout << ">> ¡Bebiste Monster! Probabilidad de critico disparada este turno.\n"; turno_valido = true; }
             else if (item_usado == 3) { buffDefensa = 40; cout << ">> ¡CQC Activo! Defensa impenetrable este turno.\n"; turno_valido = true; }
             else if (item_usado == 4) { cabraJugador->subirNivel(); turno_valido = true; }
+            }
         }
         else if (opcion == 3) {
             // Cambio de agente voluntario
@@ -144,7 +161,8 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         
         // Turno de la CPU
         if (turno_valido && !cabraCpu->estaDebilitado()){
-            cout << "\n [TURNO ENEMIGO - CPU]" << endl;
+            cout << "\n----------------------------------------" << endl;
+            cout << "\n [TURNO ENEMIGO - CPU]" << endl << endl;
             
                 bool securo = false; // variable para saber si la CPU uso un objeto de la mochila
 
@@ -166,7 +184,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
             if (danioCpu <= 0) danioCpu = 1;
            
             // Calculando critico de la CPU
-            if (probabilidad(gen) < cabraCpu->getVelocidad()) {
+            if (probabilidad(gen) < cabraCpu->getVelocidad()/10) {
                 danioCpu *= 1.5;
                 cout << "CRITICO DEL ENEMIGO\n";
             }
@@ -175,6 +193,7 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
          
            cout << ">> " << cabraCpu->obtenerNombre() << " contraataca. Daño recibido en tu agente: " << danioCpu << endl;            
         }
+        cout << "\n\n----------------------------------------" << endl;
         }
     
     }
@@ -190,13 +209,16 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
         cout << "  MISION FALLIDA. Todos tus agentes han sido eliminados. " << endl;
         resultado = "Victoria de " + cpu->obtenerNombre() + " contra " + jugador->obtenerNombre();
     }
-	
 
+    GuardarHistorial(resultado);
+}
 // CAMBIOS NUEVOS 
 
-    void Batalla::Historialbatallas(){  // Leer y mostrar historial de batalla 
+    void Batalla::Historialbatallas() {  // Leer y mostrar historial de batalla 
 	    string linea;
 	
+        ifstream leer_historial("historial.txt");
+
 	    if(leer_historial.is_open()){
 		    cout << "     HISTORIAL DE BATALLAS     " << endl;
 		
@@ -208,23 +230,22 @@ void Batalla::inicio_combat(EntrenaCabra* jugador, EntrenaCabra* cpu){
 	    else{
 		    // Si no existe el archivo todavía, significa que no han jugado la primera batalla
 		    cout << "Aun no hay batallas registradas en el historial" << endl;
-		    return;
 	    }   
     }
 
     //Guardar Historial de batalla 
-    void Batalla::GuardarHistorial(string Historial);
+    void Batalla::GuardarHistorial(string Historial){
     ofstream savehistorial("historial.txt", ios::app);
 	    if (savehistorial.is_open()){
-		    savehistorial << resultado << endl;
+		    savehistorial << Historial << endl;
 		    savehistorial.close();
 		    cout << "Batalla registrada en el historial \n";
 	    }
 	    else{
 		    cout << "ERROR! no se pudo registrar la batalla en el historial \n";
 	    }
-
-} //llave de batalla 
+    }
+ //llave de batalla 
 
 
 //prueba commit 

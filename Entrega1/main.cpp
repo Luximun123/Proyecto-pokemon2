@@ -6,6 +6,28 @@
 #include <fstream>
 using namespace std;
 
+// Función para limpiar la pantalla
+void limpiarPantalla() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+// Función mejorada para pausar
+void pausarPantalla() {
+    cout << "\n";
+    #ifdef _WIN32
+        system("pause"); 
+    #else
+        cout << "Presiona ENTER para continuar...";
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cin.get();
+    #endif
+}
+
 int main(){
 
   
@@ -34,20 +56,36 @@ int main(){
     EntrenaCabra *entrenador_2 = new EntrenaCabra("John Marston", 1911);
    
 
-    entrenador_1->AgregarPokemon(p1,0);
-    entrenador_1->AgregarPokemon(p2,1);
-    entrenador_1->AgregarPokemon(p3,2);
+    entrenador_1->cargarEquipo(entrenador_1, entrenador_2); 
 
-    /*
-    entrenador_2->AgregarPokemon(p4,0);
-    entrenador_2->AgregarPokemon(p5,1);
-    entrenador_2->AgregarPokemon(p6,2);
-    */
+	// Verificar si los equipos están vacíos (si no se cargó nada)
+bool equipo1Vacio = true, equipo2Vacio = true;
+for (int i = 0; i < 3; i++) {
+    if (entrenador_1->obtenerPokemon(i) != nullptr) equipo1Vacio = false;
+    if (entrenador_2->obtenerPokemon(i) != nullptr) equipo2Vacio = false;
+}
 
-    cargarEquipo(entrenador_1, entrenador_2); 
+if (equipo1Vacio || equipo2Vacio) {
+    cout << "No se encontró equipos.txt, creando equipos por defecto...\n";
 
+    entrenador_1->AgregarPokemon(buscarPokemon("Promeia"), 0);
+    entrenador_1->AgregarPokemon(buscarPokemon("Capitano"), 1);
+    entrenador_1->AgregarPokemon(buscarPokemon("Solid_Snake"), 2);
+
+    entrenador_2->AgregarPokemon(buscarPokemon("Big_Boss"), 0);
+    entrenador_2->AgregarPokemon(buscarPokemon("Wonder_Of_You"), 1);
+    entrenador_2->AgregarPokemon(buscarPokemon("Adam_Smasher"), 2);
+
+    entrenador_1->guardar_equipo(entrenador_1, entrenador_2);
+}
+
+pausarPantalla();
+	
 int opcion = 0;
     while (opcion != 5) {
+
+    limpiarPantalla();
+        cout << "\n    MENU PRINCIPAL  \n";
         cout << "1. Ver equipo del entrenador 1\n"; 
 		cout << "2. Ver equipo del entrenador 2\n"; 
 		cout << "3. Iniciar batalla\n";
@@ -56,43 +94,35 @@ int opcion = 0;
 
 		cout << "Que opcion desea: ";
 		cin >> opcion;
-
+        cout << endl << endl;
 
         if (opcion == 1) {
-            #ifdef _WIN32
-                system("cls");
-            #else
-                system("clear");
-            #endif
-            cout << "Operadores de el Agente 1"<<endl;
+            cout << "Operadores de el Agente 1 "<< entrenador_1->obtenerNombre() <<endl;
             entrenador_1->MostrarEquipo();
             entrenador_1->MostrarMochila();
-            cout<<endl;
-            cout << "Operadores de el Agente 2"<<endl;
-            entrenador_2->MostrarEquipo();
-            entrenador_2->MostrarMochila();
-
-
-       
-
+            pausarPantalla();
         } 
         else if (opcion == 2) {
-            #ifdef _WIN32
-                system("cls");
-            #else
-                system("clear");
-            #endif
+            cout << "Operadores de el Agente 2 "<< entrenador_2->obtenerNombre() <<endl;
+            entrenador_2->MostrarEquipo();
+            entrenador_2->MostrarMochila();
+            pausarPantalla();
+        } 
+        else if (opcion == 3) {
             Batalla Combate;
             Combate.inicio_combat(entrenador_1, entrenador_2);
+            cout << "Iniciando batalla\n";   
+            pausarPantalla();  
 
-            cout << "Iniciando batalla\n";        
         }
         //MENU NUEVO 
 
         else if (opcion == 4) {
 			// SUBMENÚ DE GESTIÓN DE ARCHIVOS 
 			int subOpcion = 0;
-			while (subOpcion != 6) { // 6 para Volver 
+			while (subOpcion != 6) { 
+                limpiarPantalla();
+
 				cout << "\n--- GESTION DE FICHEROS ---\n";
 				cout << "1. Ver listado de Pokemon disponibles\n"; 
 				cout << "2. Editar equipo actual\n"; 
@@ -102,9 +132,13 @@ int opcion = 0;
 				cout << "6. Volver\n"; 
 				cout << "Seleccione una opcion: ";
 				cin >> subOpcion;
-				
+				cout << endl << endl;
+
+                limpiarPantalla();
+
 				if (subOpcion == 1) {
-					leer_poke(); 
+					Leer_poke(); 
+                    pausarPantalla();
 				}
 				else if (subOpcion == 2) {
 					// Le preguntamos al usuario a cual de los dos entrenadores quiere editarle el equipo
@@ -119,16 +153,20 @@ int opcion = 0;
     				} else {
     			    cout << "Opción inválida.\n";
     				}
+                    pausarPantalla();
 				}
 				else if (subOpcion == 3) {
-					guardar_equipo(entrenador_1, entrenador_2); 
+					entrenador_1->guardar_equipo(entrenador_1, entrenador_2); 
+                    pausarPantalla();
 				}
 				else if (subOpcion == 4) {
-					cargarEquipo(entrenador_1, entrenador_2); 
+					entrenador_1->cargarEquipo(entrenador_1, entrenador_2); 
+                    pausarPantalla();
 				}
 				else if (subOpcion == 5) {
-					Batalla.Historialbatallas();   // considerar cosas a faltar en esta linea 
-                    
+					Batalla batallaTemp;
+					batallaTemp.Historialbatallas();   
+                    pausarPantalla();
 
 				}
 			}

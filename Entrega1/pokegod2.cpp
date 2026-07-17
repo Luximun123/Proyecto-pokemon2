@@ -65,7 +65,7 @@ void Pokemones::curar(int cantidad) {
 
 // CAMBIOS  NUEVOS 
 
-   void Pokemones::Leer_poke(){
+   void Leer_poke(){
 	ifstream archivo("Pokemon_pool.txt");
 	
 	string nombre, especie, tipo;
@@ -76,7 +76,7 @@ void Pokemones::curar(int cantidad) {
 			Pokemones* nuevoPokemon = new Pokemones(nombre, especie, tipo, vida, salud, ataque, defensa, velocidad, nivel);
 			
 			nuevoPokemon->mostrarInformacion();
-			
+			cout << "------------------------" << endl << endl;
 			delete nuevoPokemon;
 		}	
 	}
@@ -88,8 +88,8 @@ void Pokemones::curar(int cantidad) {
     }
 
 
-    Pokemones* Pokemones::buscarPokemon(string nombreBuscado) {
-	ifstream buscar("pokemon_pool.txt");
+    Pokemones* buscarPokemon(string nombreBuscado) {
+	ifstream buscar("Pokemon_pool.txt");
 	string nombre, especie, tipo;
 	int vida, salud, ataque, defensa, velocidad, nivel;
 	

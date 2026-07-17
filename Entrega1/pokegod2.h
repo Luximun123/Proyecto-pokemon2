@@ -39,12 +39,11 @@ class Pokemones {
         int getDefensa();
         int getVelocidad();
 
-        //cambios 
-        void Leer_poke();
-
-        void Pokemones::buscarPokemon(std::string nombreBuscado);
 
      
 };
+// Cambios
+void Leer_poke();
+Pokemones* buscarPokemon(std::string nombreBuscado);
 
 #endif

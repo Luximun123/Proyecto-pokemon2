@@ -26,7 +26,7 @@ using namespace std;
         }
     }
 
-    EntrenaCabra::EntrenaCabra() {
+    EntrenaCabra::~EntrenaCabra() {
         for(int i=0 ; i<cantidadPokemones; i++){
             if (equipo[i] != nullptr){
                 delete equipo[i];
@@ -82,11 +82,11 @@ using namespace std;
 }
     
     void EntrenaCabra::MostrarMochila(){
-        cout << "\n     Mochila de " << Nombre << ":" << endl;
+        cout << "\n     Mochila de " << Nombre << ":" << endl << endl;
             for(int i = 0 ; i < 5; i++){
                 cout << i << ". " << mochila[i];
                 if (objetousado[i]) cout << " [AGOTADO]";
-                cout << endl;
+                cout << endl << endl;
     }
 }
     int EntrenaCabra::usarObjeto() {
@@ -98,7 +98,7 @@ using namespace std;
         if (indice >= 0 && indice <= 4) {
 
             if(objetousado[indice]) {
-            cout << "Ya has usado el objeto: " << objetousado[indice] << endl;
+            cout << "Ya has usado el objeto: " << mochila[indice] << endl;
             return -1;
 
             }else {
@@ -140,12 +140,16 @@ using namespace std;
 
     void EntrenaCabra::guardar_equipo(EntrenaCabra* e1, EntrenaCabra* e2){
         ofstream archivoGuardar("equipos.txt");
+          
+	    if (archivoGuardar.is_open()) {
+
             //entrenador 1
 
-	    if (archivoGuardar.is_open()) {
 		    archivoGuardar << "Arthur_Morgan "; 
 		    for (int i = 0; i < 3; i++) {
+
 			    Pokemones* p = e1->obtenerPokemon(i);
+
 			    if (p != nullptr) {
 				// Reemplazamos espacios por guiones bajos para que al leer no se rompa		               
 				    string nombrePoke = p->obtenerNombre();
@@ -155,7 +159,7 @@ using namespace std;
 				    archivoGuardar << nombrePoke << " ";
 			    } 
 			    else {
-				    archivoGuardar << "Ninguno " << endl; // Por si no tiene un pokemon en esa ranura
+				    archivoGuardar << "Ninguno "; // Por si no tiene un pokemon en esa ranura
 			    }
 		    }
 		    archivoGuardar << endl; 
@@ -164,6 +168,7 @@ using namespace std;
 
 		    archivoGuardar << "John_Marston ";
 		    for (int i = 0; i < 3; i++) {
+
 			    Pokemones* p = e2->obtenerPokemon(i);
 			    if (p != nullptr) {
 			           	
@@ -174,7 +179,7 @@ using namespace std;
 				    archivoGuardar << nombrePoke << " ";
 			    } 
 			    else {
-				    archivoGuardar << "Ninguno " << endl;
+				    archivoGuardar << "Ninguno ";
 			    }
 		    }
 		    archivoGuardar << endl;
@@ -188,59 +193,6 @@ using namespace std;
 }
 
 // EQUIPO DE LA CPU
-void EntrenaCabra::EquipoCPU(EntrenaCabra* e2, EntrenaCabra* e1){
-
-    int cantPokemon=0 ;
-    string lineas;
-
-    ifstream archivoPokemon("pokemon_pool.txt");
-    if(!archivoPokemon.is_open()){
-        cout<< "no se encuentra el archivo" <<endl;
-        return;
-    }
-        while(getline(archivoPokemon,lineas)){  //leer cada linea del archivo
-            cantPokemon++;
-        }
-        //pokemon aleatorio
-       
-
-        // comprobar que no repita pokemones del jugador 
-
-        for(int i=0; i<3; i++){
-            random_device rd;
-            mt19937 gen(rd());
-            uniform_int_distribution<> lista(0, cantPokemon-1);
-
-            Pokemones* poke;
-            bool repetido = true;
-            while(repetido){
-                repetido = false;
-                poke = Pokemones::buscarPokemon(obtenerNombre(lista(gen)));
-
-                for(int j=0; j<3;j++){
-
-                    if(e1->obtenerPokemon(j) != nullptr && e1->obtenerPokemon(j)->obtenerNombre() == poke->obtenerNombre()){
-                        repetido = true;
-                        
-                    }
-                }
-
-                //comprobar que no se repita pokemon la cpu
-                for(int k=0; k<3; k++){
-                    if(e2->obtenerPokemon(k) != nullptr && e2->obtenerPokemon(k)->obtenerNombre() == poke->obtenerNombre()){    
-                    }
-                     repetido = true;             
-                }
-                if (poke != nullptr) 
-
-              // asignar pokemones aleatorio al segundo entrenador 
-                e2->AgregarPokemon(poke, i);
-            }
-
-        }
-archivoPokemon.close();
-}
-
 
 void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
 	ifstream archivoCargar("equipos.txt");
@@ -256,38 +208,31 @@ void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
 	if (archivoCargar >> nombreEntrenador >> p1 >> p2 >> p3) {
         // Buscamos y creamos los pokemones correspondientes
 
-        //NOTA: En caso de haber error aqui cambia "buscarPokemon" a  "buscarYCrearPokemon"
-
-
         Pokemones* poke1 = buscarPokemon(p1);
         Pokemones* poke2 = buscarPokemon(p2);
         Pokemones* poke3 = buscarPokemon(p3);               
         // Los asignamos a las ranuras 0, 1 y 2
-        if (poke1 != nullptr) e1->AgregarPokemon(poke1, 0);
-        if (poke2 != nullptr) e1->AgregarPokemon(poke2, 1);
-        if (poke3 != nullptr) e1->AgregarPokemon(poke3, 2);
+
+        if (poke1) e1->AgregarPokemon(poke1, 0);
+        if (poke2) e1->AgregarPokemon(poke2, 1);
+        if (poke3) e1->AgregarPokemon(poke3, 2);
     }
 
 	//Entrenador 2
-	if (archivoCargar >> nombreEntrenador >> p1 >> p2 >> p3) {
 
-        equipoCPU(e2,e1)
+	    if (archivoCargar >> nombreEntrenador >> p1 >> p2 >> p3) {
+
+        Pokemones* poke1 = buscarPokemon(p1);
+        Pokemones* poke2 = buscarPokemon(p2);
+        Pokemones* poke3 = buscarPokemon(p3);
 
 
-		// Buscamos y creamos los pokemones correspondientes
-    /*    
-		Pokemones* poke1 = buscarPokemon(p1);
-		Pokemones* poke2 = buscarPokemon(p2);
-		Pokemones* poke3 = buscarPokemon(p3);
-		
-		if (poke1 != nullptr) e2->AgregarPokemon(poke1, 0);
-		if (poke2 != nullptr) e2->AgregarPokemon(poke2, 1);
-		if (poke3 != nullptr) e2->AgregarPokemon(poke3, 2);
-        */
-	}
-	
+        if (poke1) e2->AgregarPokemon(poke1, 0);
+        if (poke2) e2->AgregarPokemon(poke2, 1);
+        if (poke3) e2->AgregarPokemon(poke3, 2);
+    }
 	archivoCargar.close();
-	cout << "\n Equipos cargados exitosamente desde el archivo";
+	cout << "\n Equipos cargados exitosamente desde el archivo\n";
 }
     
 
@@ -306,7 +251,7 @@ void EntrenaCabra::cargarEquipo(EntrenaCabra* e1, EntrenaCabra* e2) {
 
     
     cout << "\nCargando pokemones disponibles desde el pool...\n";
-    leer_poke(); // Reutilizamos la función de listar el pool que hicieron al principio
+    Leer_poke(); // Reutilizamos la función de listar el pool que hicieron al principio
 
     string nombreElegido;
     cout << "\nEscribe el nombre EXACTO del Pokemon que deseas integrar: ";
