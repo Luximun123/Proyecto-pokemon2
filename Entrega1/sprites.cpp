@@ -74,7 +74,7 @@ void mostrarSpritesEnBatalla(Pokemones* p1, Pokemones* p2) {
     // Alinear alturas (rellenar con espacios)
     size_t maxLines = max(s1.size(), s2.size());
     if (maxLines == 0) {
-        cout << "No se pudieron cargar los sprites.\n";
+        cout << "\nNo se pudieron cargar los sprites.\n";
         return;
     }
 

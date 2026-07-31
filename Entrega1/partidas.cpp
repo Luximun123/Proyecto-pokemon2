@@ -99,7 +99,7 @@ static EntrenaCabra* cargarEntrenador(istream& in) {
     for (int i = 0; i < 3; ++i) {
         PokemonData pd;
         in.read(reinterpret_cast<char*>(&pd), sizeof(pd));
-        if (pd.vida > 0) {
+        if (pd.salud > 0) {
             Pokemones* p = new Pokemones(
                 string(pd.nombre),
                 string(pd.especie),
@@ -156,7 +156,7 @@ bool guardarPartida(EntrenaCabra* e1, EntrenaCabra* e2,
     out.write(reinterpret_cast<const char*>(&checksum), sizeof(checksum));
 
     out.close();
-    cout << "Partida guardada correctamente.\n";
+    cout << "\nPartida guardada correctamente.\n";
     return true;
 }
 
