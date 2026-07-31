@@ -10,4 +10,9 @@ void mostrarSprite(const std::string& especie);
 // Dibuja los sprites de ambos Pokémon frente a frente en la interfaz de la batalla
 void mostrarSpritesEnBatalla(Pokemones* p1, Pokemones* p2);
 
+//cambios 
+
+void crearsprites(const std::string& especie, const vector<std::string>& lineas);    
+
+void dibujosprites();
 #endif // SPRITES_H

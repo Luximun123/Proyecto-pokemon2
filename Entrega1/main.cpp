@@ -257,10 +257,15 @@ else if (opcion == 5) {
                 }
                 pausarPantalla();
             }
+
+
             else if (subOpcionPartida == 3) {
                 limpiarPantalla();
+
+                dibujosprites(); // Llama a la función de sprites.cpp para mostrar todos los sprites
+
                 cout << "--- VISUALIZADOR DE SPRITES ---" << endl;
-                cout << "Introduce la especie del Pokemon (ej: Promeia, Capitano, Dante): ";
+                cout << "Introduce la especie del Pokemon:  ";
                 string esp;
                 cin >> esp;
                 mostrarSprite(esp); // Llama a la función de sprites.cpp

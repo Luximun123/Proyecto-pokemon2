@@ -100,4 +100,103 @@ void mostrarSpritesEnBatalla(Pokemones* p1, Pokemones* p2) {
          << p2->obtenerNombre() << " (" << p2->obtenerEspecie() << ") "
          << p2->getVida() << "/" << p2->getSalud() << " Nv." << p2->getNivel()
          << "\n\n";
+
+}
+// cambios
+
+void crearsprite(const std::string& especie, const vector<std::string>& lineas){
+
+    string filename = "sprites/" + especie + ".spr";
+
+    ofstream sprites(filename, ios::binary);
+    if (!sprites) {
+        cerr << "No se pudo crear el archivo de sprite para la especie '" << especie << "'\n";
+        return;
+    }
+
+    int alto = lineas.size();
+    int ancho = 0;
+    for (const string& l : lineas) {
+        if ((int)l.size() > ancho){
+
+        }
+        ancho = l.size();
+    }
+
+    //datos del sprite
+    vector<char> data;
+    for (const string& l : lineas) {
+
+        for (char c : l) {
+            data.push_back(c);
+        }
+        for (int i = l.size(); i < ancho; ++i) {
+            data.push_back(' '); // Rellenar con espacios si la línea es más corta
+        }
+
+    }
+
+    if (sprites) {
+        sprites.write(reinterpret_cast<const char*>(&ancho), sizeof(ancho));
+        sprites.write(reinterpret_cast<const char*>(&alto), sizeof(alto));
+        sprites.write(data.data(), data.size());
+    }
+
+    sprites.close();
+    cout << "Sprite creado para la especie '" << filename  << "'\n";
+
+}
+
+//dibujo de los sprites 
+void dibujosprites() {
+    filesystem Carpeta_sprites("sprites");
+
+    crearsprite("Humano",{
+        "  o  ",
+        " /|\\ ",
+        " / \\ "
+    });
+    
+    crearsprite("Zombie",{
+    " /===\\ ",
+    " |:::| ",
+    "//|#|\\\\",
+    "  / \\  "
+    });
+
+    crearsprite("Humanoide",{
+    "  /o_o\\  ",
+    "  ( | )  ",
+    " //| |\\\\ ",
+    "  /   \\  "   
+    });
+
+    crearsprite("Brujo",{
+    "  /\\_/\\  ",
+    " <(o.o)> ",
+    "  \\ v /  ",
+    "   \\/    "
+    });
+
+    crearsprite("Robot",{
+    "  /|_|\\  ",
+    " [|o_o|] ",
+    " [/###\\] ",
+    "  d   b  "
+    });
+
+    crearsprite("Mounstruo",{
+    "  (X_x)  ",
+    " ==|\\\\_  ",
+    "   | |   ",
+    "  /   L  "
+    });
+
+    crearsprite("Demonio", {
+    " /V\\_/V\\ ",
+    " ( <o> ) ",
+    " </|#|\\> ",
+    "  /   \\  "
+    }); 
+
 }
