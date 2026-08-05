@@ -104,7 +104,7 @@ void mostrarSpritesEnBatalla(Pokemones* p1, Pokemones* p2) {
 }
 // cambios
 
-void crearsprite(const std::string& especie, const vector<std::string>& lineas){
+void crearsprite(const string& especie, const vector<string>& lineas){
 
     string filename = "sprites/" + especie + ".spr";
 
@@ -118,9 +118,9 @@ void crearsprite(const std::string& especie, const vector<std::string>& lineas){
     int ancho = 0;
     for (const string& l : lineas) {
         if ((int)l.size() > ancho){
-
+            ancho = l.size();
         }
-        ancho = l.size();
+
     }
 
     //datos del sprite
@@ -143,56 +143,56 @@ void crearsprite(const std::string& especie, const vector<std::string>& lineas){
     }
 
     sprites.close();
-    cout << "Sprite creado para la especie '" << filename  << "'\n";
+    cout << "Sprite creado para la especie '" << filename  << endl;
 
 }
 
 //dibujo de los sprites 
 void dibujosprites() {
-    filesystem Carpeta_sprites("sprites");
+     
 
-    crearsprite("Humano",{
+    crearsprite("humano",{
         "  o  ",
         " /|\\ ",
         " / \\ "
     });
     
-    crearsprite("Zombie",{
+    crearsprite("zombie",{
     " /===\\ ",
     " |:::| ",
     "//|#|\\\\",
     "  / \\  "
     });
 
-    crearsprite("Humanoide",{
+    crearsprite("humanoide",{
     "  /o_o\\  ",
     "  ( | )  ",
     " //| |\\\\ ",
     "  /   \\  "   
     });
 
-    crearsprite("Brujo",{
+    crearsprite("brujo",{
     "  /\\_/\\  ",
     " <(o.o)> ",
     "  \\ v /  ",
     "   \\/    "
     });
 
-    crearsprite("Robot",{
+    crearsprite("robot",{
     "  /|_|\\  ",
     " [|o_o|] ",
     " [/###\\] ",
     "  d   b  "
     });
 
-    crearsprite("Mounstruo",{
+    crearsprite("mounstruo",{
     "  (X_x)  ",
     " ==|\\\\_  ",
     "   | |   ",
     "  /   L  "
     });
 
-    crearsprite("Demonio", {
+    crearsprite("demonio", {
     " /V\\_/V\\ ",
     " ( <o> ) ",
     " </|#|\\> ",

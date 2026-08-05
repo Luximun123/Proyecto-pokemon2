@@ -3,6 +3,7 @@
 
 #include "pokegod2.h" // Importante para que el compilador sepa qué es la clase Pokemones
 #include <string>
+#include <vector>
 
 // Muestra el sprite individual de una especie cargándolo desde la carpeta "sprites/"
 void mostrarSprite(const std::string& especie);
@@ -12,7 +13,7 @@ void mostrarSpritesEnBatalla(Pokemones* p1, Pokemones* p2);
 
 //cambios 
 
-void crearsprites(const std::string& especie, const vector<std::string>& lineas);    
+void crearsprite(const std::string& especie, const vector<std::string>& lineas);    
 
 void dibujosprites();
 #endif // SPRITES_H

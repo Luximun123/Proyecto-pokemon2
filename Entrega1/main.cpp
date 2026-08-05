@@ -55,6 +55,8 @@ int main(){
     cout << "                               POKEMON2 MAY CRY REMAKE" <<endl<<endl<<endl;
 //Pokemones y entrenadores
 
+dibujosprites(); // función para mostrar todos los sprites
+
     EntrenaCabra *entrenador_1 = new EntrenaCabra("Arthur Morgan", 1889);
     EntrenaCabra *entrenador_2 = new EntrenaCabra("John Marston", 1911);
    
@@ -261,8 +263,6 @@ else if (opcion == 5) {
 
             else if (subOpcionPartida == 3) {
                 limpiarPantalla();
-
-                dibujosprites(); // Llama a la función de sprites.cpp para mostrar todos los sprites
 
                 cout << "--- VISUALIZADOR DE SPRITES ---" << endl;
                 cout << "Introduce la especie del Pokemon:  ";
