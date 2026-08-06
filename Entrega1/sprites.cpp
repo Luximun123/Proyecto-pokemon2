@@ -148,8 +148,7 @@ void crearsprite(const string& especie, const vector<string>& lineas){
 }
 
 //dibujo de los sprites 
-void dibujosprites() {
-     
+void dibujosprites() {    
 
     crearsprite("humano",{
         "  o  ",

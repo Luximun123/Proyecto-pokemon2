@@ -13,7 +13,7 @@ void mostrarSpritesEnBatalla(Pokemones* p1, Pokemones* p2);
 
 //cambios 
 
-void crearsprite(const std::string& especie, const vector<std::string>& lineas);    
+void crearsprite(const std::string& especie, const std::vector<std::string>& lineas);    
 
 void dibujosprites();
 #endif // SPRITES_H
