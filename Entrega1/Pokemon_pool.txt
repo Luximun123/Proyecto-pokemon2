@@ -1,6 +1,6 @@
 Promeia Humano Hielo 150 150 15 35 20 1
 Capitano Zombie Fisico 150 150 50 30 20 1
-Solid_Snake Humanoide Eter 80 80 40 20 30 1
+Solid_Snake Humanoide Eter 100 100 40 20 30 1
 Big_Boss Humanoide Fuego 100 100 100 50 40 1
 Wonder_Of_You Humanoide Eter 80 80 20 40 30 1
 Adam_Smasher Robot Electrico 150 150 30 50 20 1
